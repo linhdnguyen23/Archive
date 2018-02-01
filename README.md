@@ -68,27 +68,24 @@ Users of your storage engine will undoubtedly want to be able to search the cont
 
 Your program must be able to respond to following commands:
 
-### Create Archive
-1. create "archive name" -- create a new "empty" storage unit, with given filename
-
 ### Add file to Archive
-2. add (archive) "filename" -- add the named file to storage unit
+1. add (archive) "filename" -- add the named file to storage unit; if archive doesn't exist, it is automatically created.
 
 ### Delete file from Archive
-3. del (archive) (filename) -- delete a named file from storage
+2. del (archive) (filename) -- delete a named file from storage
 
 ### List files in Archive
-4a. list (archive)  -- show all the files in storage; -l is an alias for list
-4b. list (archive) <filename> -- show properties of any filename that matches given string
+3a. list (archive)  -- show all the files in storage; -l is an alias for list
+3b. list (archive) <filename> -- show properties of any filename that matches given string
   
 ### Find file within Archive
-5. find (archive) "string" -- show properties of any textfile that contain the given string
+4. find (archive) "string" -- show properties of any textfile that contain the given string
 
 ### Extract a file from Archive
-6. extract (archive) (file)  -- emit a copy of the named file to the terminal
+5. extract (archive) (file)  -- emit a copy of the named file to the terminal
 
 ### Show program version
-7. version (show version number and build date); -v is an alias for "version"
+6. version (show version number and build date); -v is an alias for "version"
 
 ## The Requirements
 
