@@ -69,13 +69,13 @@ Users of your storage engine will undoubtedly want to be able to search the cont
 Your program must be able to respond to following commands:
 
 ### Add file to Archive
-1. add (archive) "filename" -- add the named file to storage unit; if archive doesn't exist, it is automatically created.
+1. add (archive) "filename" -- add the named file to the archive; if archive doesn't exist, it is automatically created.
 
 ### Delete file from Archive
 2. del (archive) (filename) -- delete a named file from storage
 
 ### List files in Archive
-3a. list (archive)  -- show all the files in storage; -l is an alias for list
+3a. list (archive)  -- show all the files in an archive; -l is an alias for list
 3b. list (archive) <filename> -- show properties of any filename that matches given string
   
 ### Find file within Archive
