@@ -16,15 +16,15 @@ You and your team are expected to build a program that offers the functionality 
 Your product will run as a command line application (no GUI). Like most command-line applications, users will provide commands to your program by providing command-line arguments. The general form of the commands will be:
 
 ```
-appname command <optional args>
+sfarchiver command <optional args>
 ```
 
-As shown above, "appname" is the name of your executable. "command" is the name of the command your program is being asked to execute. This _may_ be followed by an <optional> list of arguments. Some commands require multiple arguments, while others require none at all. A complete list of commands and associated arguments is provided later in this document.
+As shown above, "sfarchiver" is the name of your executable. "command" is the name of the command your program is being asked to execute. This _may_ be followed by an <optional> list of arguments. Some commands require multiple arguments, while others require none at all. A complete list of commands and associated arguments is provided later in this document.
   
 For example, your program must be able to respond to a command-line request to display the application version number. To show the version number, a user will initiate the following command:
 
 ```
-appname -v 
+sfarchiver -v 
 ```
 
 In this example, the command name is "-v", a shorthand that is equivalent to "version". Your program would then respond by showing the current version and build information. (see more details below).
@@ -72,32 +72,33 @@ Your program must be able to respond to following commands:
 add (archive) "filename" -- add the named file to the archive; if archive doesn't exist, it is automatically created.
 Example:
 ```
-appname add pictures dog.png
+sfarchiver add pictures dog.png
 ```
 ### 2. Delete file from Archive
 del (archive) "filename" -- delete a named file from storage
 Example:
 ```
-appname del pictures cat.png
+sfarchiver del pictures cat.png
 ```
 ### 3. List files in Archive
-- list (archive)  -- show all the files in an archive; -l is an alias for list
-- list (archive) "filename" -- show properties of any filename that matches given string
+- sfarchiver list (archive)  -- show all the files in an archive; -l is an alias for list
+- sfarchiver list (archive) "filename" -- show properties of any filename that matches given string
 ```
 filename size date-added
 filename size date-added
+...
 ```
 
 ### 4. Find file containing "string" within Archive
-find (archive) "string" -- show properties of any textfile that contain the given string
+sfarchiver find (archive) "string" -- show properties of any textfile that contain the given string
 
 ### 5. Extract a file from Archive
-extract (archive) "filename"  -- emit a copy of the named file to the terminal
+sfarchiver extract (archive) "filename"  -- emit a copy of the named file to the terminal
 
 ### 6. Show program version
-version (show version number and build date); -v is an alias for "version"
+sfarchiver version (show version number and build date); -v is an alias for "version"
 
-`appname version 2.3 March 10, 2018`
+`sfarchiver version 2.3 March 10, 2018`
  
 ## The Requirements
 
