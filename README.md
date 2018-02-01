@@ -172,7 +172,7 @@ Failure to submit this paper will result in receiving 0 points in this category.
 
 Style matters. Confidence matters too. So do bribes, but our CEO frowns on that, so they're out of bounds. Otherwise, show us some great team spirit. Show us a team who works well together. Show us rock solid code, contributed by everyone on your team.
 
-At the end of your project, you will each take a brief survey that allows you to rate and review the contribution of your team members. It's your job to make sure you contribute an appropriate amount to your team project.
+At the end of your project, you will each take a brief survey that allows you to rate and review the contribution of your team members. It's your job to make sure you contribute fairly with your team.
 
 ### Summary Score
 
