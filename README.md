@@ -53,13 +53,13 @@ You and your team are expected to build a program that offers the functionality 
 
 The Zombies in Marketing are awaiting your submissions. Here's how they will score your work:
 
-### 1. Working Application (40pts)
+### 1. Working Application (45pts)
 
 Vlad-the-Compiler will build your application, and test it using an automated suite of tests. Your solution will recieve 10pts for each completed functional test, so long as you complete all tasks withing the standard time window.
 
 If your solution doesn't build at all, you will receive 0 points in this category.
 
-### 2. Performance and Efficiency (20pts)
+### 2. Performance and Efficiency (30pts)
 
 Your solution will be measured and stack ranked along the dimensions of total performance and memory efficiency. 
 
@@ -75,15 +75,15 @@ Your solution will be measured and stack ranked along the dimensions of total pe
 - Solutions in the 3rd quartile in memory efficiency will receive 6 points
 - Solutions in the 4th quartile in memory efficiency will recieve 4 points
 
-### 3. Design Paper (1-3 pages) (20pts)
+### 3. Design Paper (1-3 pages) (15pts)
 
 Design papers should describe the approach the technical team took in solving the problem.  We can read your code, so this paper should describe the design ideas, challenges, and outline your solutions. Teams who fail to submit this paper will receive 0 points in this category. And don't even think about making us grab our red correction pen.
 
-### 4. Marketing Brochure (1 page) (10pts)
+### 4. Marketing Brochure (1 page) (5pts)
 
 The Marketing Brochure is a 1-page paper whose only purpose is to SELL your team and your idea. You need to convince our Zombies that you *really* understand their needs, who they are, what they want, and most of all, that you have a sense of humor. Teams who fail to submit this paper will receive 0 points in this category. 
 
-### 5. That "Something" Extra... (10pts)
+### 5. That "Something" Extra... (5pts)
 
 Style matters. Confidence matters too. So do bribes, but our CEO frowns on that, so they're out of bounds. Otherwise, show us some great team spirit. Show us a team who works well together. Show us rock solid code, contributed by everyone on your team.
 
