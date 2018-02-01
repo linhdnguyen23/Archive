@@ -3,9 +3,9 @@ A bit more challenging, a bit more work, but a lot more rewarding!
 
 ## It's Chloe's World, We're Just Living In It
 
-Chloe is the Director of Engineering at JobCo, a company that exists somewhere within a Universe full of possibility -- so much possibility in fact -- that anything that *can* happen, probably already has.  Chloe likes to believe that she has an open mind. But the trouble with having an open mind is that people will insist on coming along and trying to put things in it. So despite the fact that everyone knows they don't exist, several Zombies are tenured and working in the Marketing Department. 
+Chloe is the Director of Engineering at JobCo, a company that exists somewhere within a universe full of possibility -- so much possibility in fact -- that anything that *can* happen, probably already has.  Chloe likes to believe that she has an open mind. But the trouble with having an open mind is that people will insist on coming along and trying to put things in it. So despite the fact that everyone knows they don't exist, several zombies are tenured and working in the Marketing Department. 
 
-Like so many startups, JobCo. has sadly discovered that customers arent't interested in buying their namesake product. So, as is common practice in Silicon Valley, JobCo has decided to pivot. They're going to build and sell a completely _new_ product. The JobCo CEO wants to demonstrate the new product at CES. In **FIVE** weeks.  As a result, your team have been invited to submit your a version of the "The Product", described below. 
+Like so many startups, JobCo. has sadly discovered that customers arent't interested in buying their namesake product. So, as is common practice in Silicon Valley, JobCo has decided to pivot. They're going to build and sell a completely _new_ product. The JobCo CEO wants to demonstrate the new product at CES. In **FIVE** weeks.  As a result, your team have been invited to submit your version of the "The Product", described below. 
 
 ## May The Best Team Win
 
@@ -19,7 +19,7 @@ Your product will run as a command line application (no GUI). Like most command-
 appname command <optional args>
 ```
 
-As shown above, "appname" is the name of your executable. "Command" is the name of the command your program is being asked to execute. This _may_ be followed by an <optional> list of arguments. Some commands require multiple arguments, while others require not at all. A complete list of commands and associated arguments is provided later in this document.
+As shown above, "appname" is the name of your executable. "command" is the name of the command your program is being asked to execute. This _may_ be followed by an <optional> list of arguments. Some commands require multiple arguments, while others require none at all. A complete list of commands and associated arguments is provided later in this document.
   
 For example, your program must be able to respond to a command-line request to display the application version number. To show the version number, a user will initiate the following command:
 
@@ -30,13 +30,13 @@ appname -v
 In this example, the command name is "-v", a shorthand that is equivalent to "version". Your program would then respond by showing the current version and build information. (see more details below).
 
 
-### Feature 2 -- storage engine
+### Feature 2 -- Storage Engine
 
 The whole point of this program is to manage a collection of resources in a single (binary) file we shall call "archives". Similar to the way a .tar or a .zip file stores a collection of compressed files. Note: Compression is not a requirement of this assignment.  However, if your team is bold, and wants to really outperform in the area of storage efficiency, you may "choose" to apply lossless compression to certain data. Again, this is NOT a requirement, and is not recommended for people with heart conditions. :)
 
 #### Basic Storage
 
-Your "storage engine" will create and managed binary files (archives), that are comprised of an arbitrary set of files. Users may add text files, or binary files like images or videos. Your program will not be asked to any single file larger than 500k in size. It should go without saying, but your program must not change, alter, or corrupt the files that it stores in any way. Assuming a given file has been added to your archive, when it is extracted it must be *exactly* the same.
+Your "storage engine" will create and manage binary files (archives), that are comprised of an arbitrary set of files. Users may add text files, or binary files like images or videos. Your program will not be asked to add any single file larger than 500k in size. It should go without saying, but your program must not change, alter, or corrupt the files that it stores in any way. Assuming a given file has been added to your archive, when it is extracted it must be *exactly* the same.
 
 #### A Note on Space Management
 
@@ -56,7 +56,7 @@ As you can see, your total file is 1/3 larger than it needs to be. In order to g
 A reasonable solution to reduce overall storage space, is to manage your underlying archive file in "chunks" of a fixed size that can easily be moved within the archive. If your program keeps track of which "chunks" are unused, you algorithm could automatically reclaim unused space, rather than just appending new content to the end of your archive.
 
 
-### Feature 3 -- searching for contents
+### Feature 3 -- Searching for Contents
 
 Users of your storage engine will undoubtedly want to be able to search the contents of a given archive. They may want to search in two ways:
 
@@ -103,16 +103,16 @@ version (show version number and build date); -v is an alias for "version"
 
 ## Submitting Your Solution
 
-1. To enter the competition, your team must submit a working (makeable) solution on github, on or before the deadline.
+1. To enter the competition, your team must submit a working (makeable) solution on GitHub, on or before the deadline.
 2. Your team must submit a 1-3 page paper describing the technical design concepts you used in your solution. 
 
 ## Choosing a Winner
 
-The Zombies in Marketing are awaiting your submissions. Here's how they will score your work:
+The zombies in Marketing are awaiting your submissions. Here's how they will score your work:
 
 ### 1. Working Application (45pts)
 
-Vlad-the-Compiler will build your application, and test it using an automated suite of tests. Your solution will recieve 10pts for each completed functional test, so long as you complete all tasks withing the standard time window.
+Vlad-the-Compiler will build your application, and test it using an automated suite of tests. Your solution will recieve 10 points for each completed functional test, so long as you complete all tasks within the standard time window.
 
 If your solution doesn't build at all, you will receive 0 points in this category.
 
@@ -149,9 +149,9 @@ Storage efficiency is a measure of the aggregated disk space used by your progra
 
 ### 3. Technical Design Summary (1-3 pages) (20pts)
 
-In addition to being able to write code, or design circuits, engineers need to know how to communicate ideas. Therefore, each team will submit a "Technical Design Summary" paper that describes the approach the team took in solving the problem.  This paper should describe the design ideas, challenges, and outline your solutions. One way to think of this, is imagine that your are standing in front of a whiteboard in front of a room full of engineers, trying to explain your design decisions. 
+In addition to being able to write code, or design circuits, engineers need to know how to communicate ideas. Therefore, each team will submit a "Technical Design Summary" paper that describes the approach the team took in solving the problem.  This paper should describe the design ideas, challenges, and outline your solutions. One way to think of this is, imagine that your are standing in front of a whiteboard in front of a room full of engineers trying to explain your design decisions. 
 
-Failure to submit this paper will receive 0 points in this category. And don't even think about making us grab our red correction pen.
+Failure to submit this paper will result in receiving 0 points in this category. And don't even think about making us grab our red correction pen.
 
 ### 4. That "Something" Extra... (5pts)
 
@@ -160,7 +160,6 @@ Style matters. Confidence matters too. So do bribes, but our CEO frowns on that,
 ### Summary Score
 
 Your submission will recieve a maximum of 100 points, aggregated from the points you earn in each of the 5 categories.
-
 
 ## Prize? Did you say Prize?
 
