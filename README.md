@@ -48,19 +48,36 @@ You and your team are expected to build a program offers the functionality summa
 The Zombies in Marketing are awaiting your submissions. Here's how they will score your work:
 
 ### 1. Working Application (40pts)
-...
+
+Vlad-the-Compiler will build your application, and test it using an automated suite of tests. Your solution will recieve 10pts for each completed functional test, so long as you complete all tasks withing the standard time window.
+
+If your solution doesn't build at all, you will receive 0 points. 
 
 ### 2. Performance and Efficiency (20pts)
-...
+
+Your solution will be measured and stack ranked along the dimensions of total performance and memory efficiency. 
+
+-- Solutions in the 1st quartile in performance will receive 10 points
+-- Solutions in the 2nd quartile in performance will receive 8 points
+-- Solutions in the 3rd quartile in performance will receive 6 points
+-- Solutions in the 4th quartile in performance will recieve 4 points
+
+-- Solutions in the 1st quartile in memory efficiency will receive 10 points
+-- Solutions in the 2nd quartile in memory efficiency will receive 8 points
+-- Solutions in the 3rd quartile in memory efficiency will receive 6 points
+-- Solutions in the 4th quartile in memory efficiency will recieve 4 points
 
 ### 3. Design Paper (1-3 pages) (20pts)
-...
+
+Design papers should describe the approach the technical team took in solving the problem.  We can read your code, so this paper should describe the design ideas, challenges, and solutions. Don't make us grab our red pen...
 
 ### 4. Marketing Summary (1 page) (10pts)
-...
+
+The Marketing summary is a 1-page paper whose only purpose is to SELL your team and your idea. You need to convince our Zombies that you *really* understand their needs, who they are, what they want, and most of all, that you have a sense of humor.
 
 ### 5. That "Something" Extra... (10pts)
-...
+
+Style matters. Confidence matters too. So do bribes, but our CEO frowns on that, so they're out of bounds. Otherwise, show us some great team spirit. Show us a team who works well together. Show us rock solid code, contributed by everyone on your team.
 
 ### Summary Score
 
