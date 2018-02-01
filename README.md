@@ -176,7 +176,7 @@ At the end of your project, you will each take a brief survey that allows you to
 
 ### Summary Score
 
-Your submission will recieve a maximum of 100 points, aggregated from the points you earn in each of the main categories.
+Your submission can recieve a total of 100 points, aggregated from points you earn in each of the main categories.
 
 ## Prize? Did you say Prize?
 
