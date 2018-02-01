@@ -149,7 +149,9 @@ Storage efficiency is a measure of the aggregated disk space used by your progra
 
 ### 3. Technical Design Summary (1-3 pages) (20pts)
 
-Technical design papers should describe the approach the technical team took in solving the problem.  We can read your code, so this paper should describe the design ideas, challenges, and outline your solutions. Teams who fail to submit this paper will receive 0 points in this category. And don't even think about making us grab our red correction pen.
+In addition to being able to write code, or design circuits, engineers need to know how to communicate ideas. Therefore, each team will submit a "Technical Design Summary" paper that describes the approach the team took in solving the problem.  This paper should describe the design ideas, challenges, and outline your solutions. One way to think of this, is imagine that your are standing in front of a whiteboard in front of a room full of engineers, trying to explain your design decisions. 
+
+Failure to submit this paper will receive 0 points in this category. And don't even think about making us grab our red correction pen.
 
 ### 4. That "Something" Extra... (5pts)
 
