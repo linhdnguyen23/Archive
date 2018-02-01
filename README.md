@@ -3,7 +3,7 @@ A bit more challenging, a bit more work, but a lot more rewarding!
 
 ## It's Chloe's World, We're Just Living In It
 
-Chloe is the Director of Engineering at JobCo, a company that exists somewhere within a universe full of possibility -- so much possibility in fact -- that anything that *can* happen, probably already has.  Chloe likes to believe that she has an open mind. But the trouble with having an open mind is that people will insist on coming along and trying to put things in it. So despite the fact that everyone knows they don't exist, several zombies are tenured and working in the Marketing Department. 
+Chloe is the Director of Engineering at JobCo, a company that exists somewhere within a universe full of possibility -- so much possibility in fact -- that anything that *can* happen, probably already has.  Chloe likes to believe that she has an open mind. But the trouble with having an open mind is that people will insist on coming along and trying to put things in it. So despite the fact that everyone knows that Zombies don't exist, several are tenured and working in the Marketing Department. 
 
 Like so many startups, JobCo. has sadly discovered that customers arent't interested in buying their namesake product. So, as is common practice in Silicon Valley, JobCo has decided to pivot. They're going to build and sell a completely _new_ product. The JobCo CEO wants to demonstrate the new product at CES. In **FIVE** weeks.  As a result, your team have been invited to submit your version of the "The Product", described below. 
 
