@@ -93,7 +93,7 @@ Your solution will be measured and stack ranked along the dimensions of total pe
 
 Technical design papers should describe the approach the technical team took in solving the problem.  We can read your code, so this paper should describe the design ideas, challenges, and outline your solutions. Teams who fail to submit this paper will receive 0 points in this category. And don't even think about making us grab our red correction pen.
 
-### 5. That "Something" Extra... (5pts)
+### 4. That "Something" Extra... (5pts)
 
 Style matters. Confidence matters too. So do bribes, but our CEO frowns on that, so they're out of bounds. Otherwise, show us some great team spirit. Show us a team who works well together. Show us rock solid code, contributed by everyone on your team.
 
