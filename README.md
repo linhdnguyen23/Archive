@@ -40,8 +40,32 @@ You and your team are expected to build a program offers the functionality summa
 ## Submitting Your Solution
 
 1. To enter the competition, your team must submit a working (makeable) solution on github, on or before the deadline.
-2. Your team must submit a 1-3 page paper describing the design concepts you used in your solution.
-3. Your team must submit a 1-page "Marketing Overview" that describes your product, highlights your team, and offers reasons why your solution should be chosen over your competitors. As this is a marketing document, your submission should be witty, exciting, interesting and compelling. 
+2. Your team must submit a 1-3 page paper describing the technical design concepts you used in your solution.
+3. Your team must submit a 1-page "Marketing Summary" that describes your product, highlights your team, and offers reasons why your solution should be chosen over your competitors. Since this is a marketing document, your submission must be witty, exciting, interesting and compelling. 
+
+## Choosing a Winner
+
+The Zombies in Marketing are awaiting your submissions. Here's how they will score your work:
+
+### Working Application (40pts)
+...
+
+### Performance and Efficiency (20pts)
+...
+
+### 1-3 Page Design Paper (20pts)
+...
+
+### 1-Page Marketing Summary (10pts)
+...
+
+### 1-That "Something" Extra... (10pts)
+...
+
+### Summary Score
+
+Your submission will recieve a maximum of 100 points, comprised of the total points your solution receives in each of the 5 categories.
+
 
 ## Prize? Did you say Prize?
 
