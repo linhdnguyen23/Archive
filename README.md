@@ -75,9 +75,9 @@ Your solution will be measured and stack ranked along the dimensions of total pe
 - Solutions in the 3rd quartile in memory efficiency will receive 6 points
 - Solutions in the 4th quartile in memory efficiency will recieve 4 points
 
-### 3. Design Paper (1-3 pages) (15pts)
+### 3. Technical Design Summary (1-3 pages) (15pts)
 
-Design papers should describe the approach the technical team took in solving the problem.  We can read your code, so this paper should describe the design ideas, challenges, and outline your solutions. Teams who fail to submit this paper will receive 0 points in this category. And don't even think about making us grab our red correction pen.
+Technical design papers should describe the approach the technical team took in solving the problem.  We can read your code, so this paper should describe the design ideas, challenges, and outline your solutions. Teams who fail to submit this paper will receive 0 points in this category. And don't even think about making us grab our red correction pen.
 
 ### 4. Marketing Brochure (1 page) (5pts)
 
