@@ -9,7 +9,7 @@ The top-selling product at JobCo is called "Coin-Pops". Coin-Pops are inflatable
 
 ## May The Best Team Win
 
-If you're receiving this memo, then you and your team have been invited to build your version of the storage engine. Just before we have to show the product to customers, we will have a team-against-team competition. Whatever product performs the best will win, and be demonstrated by our Zombie Marketing team at CES!  
+If you're receiving this memo, then you and your team have been invited to build your version of the "The Product". Just before we have to show the product to customers, we will have a team-against-team competition. Whatever product performs the best will win, and be demonstrated by our Zombie Marketing team at CES!  
 
 You and your team are expected to build a program offers the functionality summarized below. 
 
