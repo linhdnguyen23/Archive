@@ -33,7 +33,7 @@ You and your team are expected to build a program offers the functionality summa
 ## The Requirements
 
 1. Your solution must be built using C++, and all of the code must be your own, original code. 
-2. You MAY use the C++ STL in your solution if you deem it appropriate to do so. However, no other libraries may be used. 
+2. You MAY use the C++ STL in your solution if you deem it appropriate to do so. **No other** libraries may be used. 
 3. Your solution must be a stand-alone application, capable of being run from the command line. 
 4. You cannot use external applications or services to do the work; your application must implement all the functionality. 
 
