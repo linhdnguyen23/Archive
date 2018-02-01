@@ -59,7 +59,7 @@ A reasonable solution to reduce overall storage space, is to manage your underly
 
 ## The Commands
 
-Your program must be able to respond to XXX basic commands:
+Your program must be able to respond to following commands:
 
 ### Create StorageFile
 1. create (storagefile) -- create a new "empty" storage unit, with given filename
