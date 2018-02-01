@@ -104,7 +104,7 @@ sfarchiver version (show version number and build date); -v is an alias for "ver
 
 1. Your solution must be built using C++, and all of the code must be your own, original code. 
 2. You MAY use the C++ STL in your solution if you deem it appropriate to do so. No "3rd party" libraries may be used. 
-3. Your solution must be a stand-alone application, capable of being run from the command line. 
+3. Your solution must be a stand-alone application, capable of being built (make) and run from the command line. 
 4. You cannot use external applications or services to do the work; your application must implement all the functionality. 
 
 ## Submitting Your Solution
@@ -162,6 +162,8 @@ Failure to submit this paper will result in receiving 0 points in this category.
 ### 4. That "Something" Extra... (5pts)
 
 Style matters. Confidence matters too. So do bribes, but our CEO frowns on that, so they're out of bounds. Otherwise, show us some great team spirit. Show us a team who works well together. Show us rock solid code, contributed by everyone on your team.
+
+At the end of your project, you will each take a brief survey that allows you to rate and review the contribution of your team members. It's your job to make sure you contribute an appropriate amount to your team project.
 
 ### Summary Score
 
