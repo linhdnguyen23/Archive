@@ -5,19 +5,29 @@ A bit more challenging, a bit more work, but a lot more rewarding!
 
 Chloe is the Director of Engineering at JobCo, a company that exists somewhere within a Universe full of possibility -- so much possibility in fact -- that anything that *can* happen, probably already has.  Chloe likes to believe that she has an open mind. But the trouble with having an open mind is that people will insist on coming along and trying to put things in it. So despite the fact that everyone knows they don't exist, several Zombies are tenured and working in the Marketing Department. 
 
-The top-selling product at JobCo is called "Coin-Pops". Coin-Pops are inflatable balloons with a block-chain ledger, that keeps track of who last held each balloon before its inevitable, accidental, and unstoppable rise into the afternoon sky. But as the price of bitcoin has begun to drop in recent months, so too has the market demand for Coin-Pops. So the CEO of JobCo assembled his amazing team of Marketing Zombies, and together they decided to ask for a new (non-existant) storage product in time to demonstrate at CES. In **FIVE** weeks.
+Like so many startups, JobCo. has sadly discovered that customers arent't interested in buying their namesake product. So, as is common practice in Silicon Valley, JobCo has decided to pivot. They're going to build and sell a completely _new_ product. The JobCo CEO wants to demonstrate the new product at CES. In **FIVE** weeks.  As a result, you your team have been invited to submit your a version of the "The Product", described below. 
 
 ## May The Best Team Win
-
-If you're receiving this memo, then you and your team have been invited to build your version of the "The Product". 
-
-Prior to demonstrating the product to customers, we will have a team-against-team competition. Whatever product performs the best will win, and be demonstrated by our Zombie Marketing team at CES!  
 
 You and your team are expected to build a program that offers the functionality summarized below. 
 
 ### Feature 1 -- command processing
 
-(details TBD)
+Your product will run as a command line application (no GUI). Like most command-line applications, users will provide commands to your program by providing command-line arguments. The general form of the commands will be:
+
+```
+appname command <optional args>
+```
+
+As shown above, "appname" is the name of your executable. "Command" is the name of the command your program is being asked to execute. "<optional args> is an optional list of arguments. Some commands require multiple arguments, while others require not at all. Command details will be provided below.
+  
+For example, your program must be able to respond to a command-line request to display the application version number. To show the version number, a user will initiate the following command:
+
+```
+appname -v 
+```
+
+In this example, the command name is "-v", a shorthand that is equivalent to "version". Your program would then respond by showing the current version and build information. (see more details below).
 
 
 ### Feature 2 -- storage engine
