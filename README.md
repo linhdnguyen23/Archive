@@ -5,7 +5,7 @@ A bit more challenging, a bit more work, but a lot more rewarding!
 
 Chloe is the Director of Engineering at JobCo, a company that exists somewhere with a Universe that is full of possibility -- so much possibility in fact -- that anything that *can* happen in the Universe, probably already has.  Chloe likes to believe that she has an open mind. But the trouble with having an open mind is that people will insist on coming along and trying to put things in it. So despite the fact that Zombies simply do not exist, several are tenured and working in the Marketing Department at JobCo. Their pronouns are "slarrghh", "mmmrrf", and "glurrbgh".
 
-The top-selling product at JobCo is called "Coin-Pops". Coin-Pops are inflatable baloons with a block-chain ledger, that keeps track of who last held each baloon before its inevitable, accidental, and unstoppable rise into the afternoon sky. But as the price of bitcoin has begun to drop in recent months, so too has the market demand for Coin-Pops. So the CEO of JobCo assembled his Marketing Zombies, and have decided to demo a new (non-existant) storage product in time for CES. In. Four. Weeks.
+The top-selling product at JobCo is called "Coin-Pops". Coin-Pops are inflatable baloons with a block-chain ledger, that keeps track of who last held each baloon before its inevitable, accidental, and unstoppable rise into the afternoon sky. But as the price of bitcoin has begun to drop in recent months, so too has the market demand for Coin-Pops. So the CEO of JobCo assembled his Marketing Zombies, and together they decided to demo a new (non-existant) storage product in time for CES. In **SIX** weeks.
 
 ## May The Best Team Win
 
