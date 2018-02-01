@@ -15,19 +15,23 @@ You and your team are expected to build a program offers the functionality summa
 
 ### Feature 1 -- command processing
 
-...
+(details TBD)
+
 
 ### Feature 2 -- storage engine
 
-...
+(details TBD)
+
 
 ### Feature 3 -- searching
 
-...
+(details TBD)
+
 
 ### Feature 4 -- logging capabilities
 
-...
+(details TBD)
+
 
 
 ## The Requirements
