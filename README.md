@@ -78,7 +78,7 @@ Your program must be able to respond to following commands:
 3a. list (archive)  -- show all the files in an archive; -l is an alias for list
 3b. list (archive) <filename> -- show properties of any filename that matches given string
   
-### Find file within Archive
+### Find file containing "string" within Archive
 4. find (archive) "string" -- show properties of any textfile that contain the given string
 
 ### Extract a file from Archive
