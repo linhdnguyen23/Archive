@@ -55,9 +55,11 @@ As you can see, your total file is 1/3 larger than it needs to be. In order to g
 
 A reasonable solution to reduce overall storage space, is to manage your underlying storage space in "chunks" of a fixed size that can easily be moved within the larger storage file. If your program keeps track of which "chunks" are unused, you algorithm could automatically reclaim unused space, rather than just appending new content to the end of your file.
 
+
 ### Feature 3 -- searching for contents
 
 (details TBD)
+
 
 ## The Commands
 
