@@ -57,11 +57,13 @@ If your solution doesn't build at all, you will receive 0 points.
 
 Your solution will be measured and stack ranked along the dimensions of total performance and memory efficiency. 
 
+#### Performance 
 - Solutions in the 1st quartile in performance will receive 10 points
 - Solutions in the 2nd quartile in performance will receive 8 points
 - Solutions in the 3rd quartile in performance will receive 6 points
 - Solutions in the 4th quartile in performance will recieve 4 points
 
+#### Memory Efficiency
 - Solutions in the 1st quartile in memory efficiency will receive 10 points
 - Solutions in the 2nd quartile in memory efficiency will receive 8 points
 - Solutions in the 3rd quartile in memory efficiency will receive 6 points
