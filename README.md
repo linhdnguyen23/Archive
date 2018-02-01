@@ -111,6 +111,15 @@ sfarchiver version (show version number and build date); -v is an alias for "ver
 
 1. To enter the competition, your team must submit a working (makeable) solution on GitHub, on or before the deadline.
 2. Your team must submit a 1-3 page paper describing the technical design concepts you used in your solution. 
+3. Submit a "students.json" file that contains the name, pid and email of each student in your group.
+
+```
+[
+  {'name':'jack','email':'jack@gmail.com','pid':'xxxyyyzzz'},
+  {'name':'jill','email':'jill@gmail.com','pid':'xxxyyyzzz'}
+  ...
+]
+```
 
 ## Choosing a Winner
 
