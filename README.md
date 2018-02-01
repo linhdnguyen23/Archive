@@ -72,11 +72,11 @@ Your program must be able to respond to following commands:
 add (archive) "filename" -- add the named file to the archive; if archive doesn't exist, it is automatically created.
 
 ### 2. Delete file from Archive
-del (archive) (filename) -- delete a named file from storage
+del (archive) "filename" -- delete a named file from storage
 
 ### 3. List files in Archive
 - list (archive)  -- show all the files in an archive; -l is an alias for list
-- list (archive) <filename> -- show properties of any filename that matches given string
+- list (archive) "filename" -- show properties of any filename that matches given string
   
 ```
 filename size date-added
@@ -87,7 +87,7 @@ filename size date-added
 find (archive) "string" -- show properties of any textfile that contain the given string
 
 ### 5. Extract a file from Archive
-extract (archive) (file)  -- emit a copy of the named file to the terminal
+extract (archive) "filename"  -- emit a copy of the named file to the terminal
 
 ### 6. Show program version
 version (show version number and build date); -v is an alias for "version"
