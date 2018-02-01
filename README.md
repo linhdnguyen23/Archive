@@ -41,7 +41,7 @@ You and your team are expected to build a program offers the functionality summa
 
 1. To enter the competition, your team must submit a working (makeable) solution on github, on or before the deadline.
 2. Your team must submit a 1-3 page paper describing the design concepts you used in your solution.
-3. Your team must submit a 1-page "Marketing Overview" that describes your product, highlights your team, and offers reasons why your solution should be chosen over your competitors.
+3. Your team must submit a 1-page "Marketing Overview" that describes your product, highlights your team, and offers reasons why your solution should be chosen over your competitors. As this is a marketing document, your submission should be witty, exciting, interesting and compelling. 
 
 ## Prize? Did you say Prize?
 
