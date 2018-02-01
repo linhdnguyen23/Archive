@@ -36,7 +36,7 @@ The whole point of this program is to manage a collection of resources in a sing
 
 #### Basic Storage
 
-Your "storage engine" will create and managed binary files (archives), that are comprised of an arbitrary set of files. Users may add text files, or binary files like images or videos. Your program will not be asked to any single file larger than 500k in size. It should go without saying, but your program must not change, alter, or corrupt the files that it stores in any way. Assuming a given file has been added to your storage file, when it is extracted it must be *exactly* the same.
+Your "storage engine" will create and managed binary files (archives), that are comprised of an arbitrary set of files. Users may add text files, or binary files like images or videos. Your program will not be asked to any single file larger than 500k in size. It should go without saying, but your program must not change, alter, or corrupt the files that it stores in any way. Assuming a given file has been added to your archive, when it is extracted it must be *exactly* the same.
 
 #### A Note on Space Management
 
@@ -68,23 +68,23 @@ Users of your storage engine will undoubtedly want to be able to search the cont
 
 Your program must be able to respond to following commands:
 
-### Create StorageFile
+### Create Archive
 1. create "archive name" -- create a new "empty" storage unit, with given filename
 
-### Add file to StorageFile
+### Add file to Archive
 2. add (archive) "filename" -- add the named file to storage unit
 
-### Delete file from StorageFile
+### Delete file from Archive
 3. del (archive) (filename) -- delete a named file from storage
 
-### List files in StorageFile
+### List files in Archive
 4a. list (archive)  -- show all the files in storage; -l is an alias for list
 4b. list (archive) <filename> -- show properties of any filename that matches given string
   
-### Find file within StorageFile
+### Find file within Archive
 5. find (archive) "string" -- show properties of any textfile that contain the given string
 
-### Extract a file from StorageFile
+### Extract a file from Archive
 6. extract (archive) (file)  -- emit a copy of the named file to the terminal
 
 ### Show program version
