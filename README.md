@@ -19,7 +19,7 @@ Your product will run as a command line application (no GUI). Like most command-
 appname command <optional args>
 ```
 
-As shown above, "appname" is the name of your executable. "Command" is the name of the command your program is being asked to execute. "<optional args> is an optional list of arguments. Some commands require multiple arguments, while others require not at all. A complete list of commands and associated arguments is provided later in this document.
+As shown above, "appname" is the name of your executable. "Command" is the name of the command your program is being asked to execute. This _may_ be followed by an <optional> list of arguments. Some commands require multiple arguments, while others require not at all. A complete list of commands and associated arguments is provided later in this document.
   
 For example, your program must be able to respond to a command-line request to display the application version number. To show the version number, a user will initiate the following command:
 
