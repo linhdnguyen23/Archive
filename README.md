@@ -97,8 +97,7 @@ Your program must be able to respond to following commands:
 ## Submitting Your Solution
 
 1. To enter the competition, your team must submit a working (makeable) solution on github, on or before the deadline.
-2. Your team must submit a 1-3 page paper describing the technical design concepts you used in your solution.
-3. Your team must submit a 1-page "Marketing Brochure" that describes your product, highlights your team, and offers reasons why your solution should be chosen over your competitors. Since this is a marketing document, your submission must be witty, exciting, interesting and compelling. 
+2. Your team must submit a 1-3 page paper describing the technical design concepts you used in your solution. 
 
 ## Choosing a Winner
 
