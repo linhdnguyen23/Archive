@@ -9,16 +9,42 @@ The top-selling product at JobCo is called "Coin-Pops". Coin-Pops are inflatable
 
 ## May The Best Team Win
 
--- describe how the company decided to do a bake-off
--- lots of teams are competing to introduce *their* version of the product
+If you're receiving this memo, then you and your team have been invited to build your version of the storage engine. Just before we have to show the product to customers, we will have a team-against-team competition. Whatever product performs the best will win, and be demonstrated by our Zombie Marketing team at CES!  
 
-## The Job Stories
+You and your team are expected to build a program offers the functionality summarized below. 
 
-Required sub-systems:
+### Feature 1 -- command processing
 
-1. command processor
-2. storage engine
-3. logging engine
-4. integrity engine
+...
+
+### Feature 2 -- storage engine
+
+...
+
+### Feature 3 -- searching
+
+...
+
+### Feature 4 -- logging capabilities
+
+...
+
+
+## The Requirements
+
+Your solution must be built using C++, for performance reasons of course. Your solution must be a stand-alone application, capable of being run from the command line. You cannot use external applications or services to do the work; your application must implement all the functionality. You MAY use the C++ STL in your solution if you deem it appropriate to do so.
+
+## How To Win The Competition
+
+dddd
+
+## Prize? Did you say Prize?
+
+Why yes, we did say "Prize". Prize. Prize. Prize. As in, you get something of value for winning this competition.
+
+
+
+
+
 
 
