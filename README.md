@@ -118,16 +118,31 @@ If your solution doesn't build at all, you will receive 0 points in this categor
 Your solution will be measured and stack ranked along the dimensions of total performance and memory efficiency. 
 
 #### Performance 
+
+Performance is an aggregated measure of clock ticks to perform a set of requested actions.
+
 - Solutions in the 1st quartile in performance will receive 10 points
 - Solutions in the 2nd quartile in performance will receive 8 points
 - Solutions in the 3rd quartile in performance will receive 6 points
 - Solutions in the 4th quartile in performance will recieve 4 points
 
 #### Memory Efficiency
+
+Memory efficiency is a measure of the total memory used by your program during tests.
+
 - Solutions in the 1st quartile in memory efficiency will receive 10 points
 - Solutions in the 2nd quartile in memory efficiency will receive 8 points
 - Solutions in the 3rd quartile in memory efficiency will receive 6 points
 - Solutions in the 4th quartile in memory efficiency will recieve 4 points
+
+#### Storage Efficiency
+
+Storage efficiency is a measure of the aggregated disk space used by your program in the test archives.
+
+- Solutions in the 1st quartile in storage efficiency will receive 10 points
+- Solutions in the 2nd quartile in storage efficiency will receive 8 points
+- Solutions in the 3rd quartile in storage efficiency will receive 6 points
+- Solutions in the 4th quartile in storage efficiency will recieve 4 points
 
 ### 3. Technical Design Summary (1-3 pages) (20pts)
 
