@@ -70,19 +70,24 @@ Your program must be able to respond to following commands:
 
 ### 1. Add file to Archive
 add (archive) "filename" -- add the named file to the archive; if archive doesn't exist, it is automatically created.
-
+Example:
+```
+appname add pictures dog.png
+```
 ### 2. Delete file from Archive
 del (archive) "filename" -- delete a named file from storage
-
+Example:
+```
+appname del pictures cat.png
+```
 ### 3. List files in Archive
 - list (archive)  -- show all the files in an archive; -l is an alias for list
 - list (archive) "filename" -- show properties of any filename that matches given string
-  
 ```
 filename size date-added
 filename size date-added
 ```
-  
+
 ### 4. Find file containing "string" within Archive
 find (archive) "string" -- show properties of any textfile that contain the given string
 
