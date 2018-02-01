@@ -68,25 +68,32 @@ Users of your storage engine will undoubtedly want to be able to search the cont
 
 Your program must be able to respond to following commands:
 
-### Add file to Archive
-1. add (archive) "filename" -- add the named file to the archive; if archive doesn't exist, it is automatically created.
+### 1. Add file to Archive
+add (archive) "filename" -- add the named file to the archive; if archive doesn't exist, it is automatically created.
 
-### Delete file from Archive
-2. del (archive) (filename) -- delete a named file from storage
+### 2. Delete file from Archive
+del (archive) (filename) -- delete a named file from storage
 
-### List files in Archive
-3a. list (archive)  -- show all the files in an archive; -l is an alias for list
-3b. list (archive) <filename> -- show properties of any filename that matches given string
+### 3. List files in Archive
+- list (archive)  -- show all the files in an archive; -l is an alias for list
+- list (archive) <filename> -- show properties of any filename that matches given string
   
-### Find file containing "string" within Archive
-4. find (archive) "string" -- show properties of any textfile that contain the given string
+```
+filename size date-added
+filename size date-added
+```
+  
+### 4. Find file containing "string" within Archive
+find (archive) "string" -- show properties of any textfile that contain the given string
 
-### Extract a file from Archive
-5. extract (archive) (file)  -- emit a copy of the named file to the terminal
+### 5. Extract a file from Archive
+extract (archive) (file)  -- emit a copy of the named file to the terminal
 
-### Show program version
-6. version (show version number and build date); -v is an alias for "version"
+### 6. Show program version
+version (show version number and build date); -v is an alias for "version"
 
+`appname version 2.3 March 10, 2018`
+ 
 ## The Requirements
 
 1. Your solution must be built using C++, and all of the code must be your own, original code. 
