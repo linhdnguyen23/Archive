@@ -47,24 +47,24 @@ You and your team are expected to build a program offers the functionality summa
 
 The Zombies in Marketing are awaiting your submissions. Here's how they will score your work:
 
-### Working Application (40pts)
+### 1. Working Application (40pts)
 ...
 
-### Performance and Efficiency (20pts)
+### 2. Performance and Efficiency (20pts)
 ...
 
-### 1-3 Page Design Paper (20pts)
+### 3. Design Paper (1-3 pages) (20pts)
 ...
 
-### 1-Page Marketing Summary (10pts)
+### 4. Marketing Summary (1 page) (10pts)
 ...
 
-### 1-That "Something" Extra... (10pts)
+### 5. That "Something" Extra... (10pts)
 ...
 
 ### Summary Score
 
-Your submission will recieve a maximum of 100 points, comprised of the total points your solution receives in each of the 5 categories.
+Your submission will recieve a maximum of 100 points, aggregated from the points you earn in each of the 5 categories.
 
 
 ## Prize? Did you say Prize?
