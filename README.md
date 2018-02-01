@@ -32,11 +32,16 @@ You and your team are expected to build a program offers the functionality summa
 
 ## The Requirements
 
-Your solution must be built using C++, for performance reasons of course. Your solution must be a stand-alone application, capable of being run from the command line. You cannot use external applications or services to do the work; your application must implement all the functionality. You MAY use the C++ STL in your solution if you deem it appropriate to do so.
+1. Your solution must be built using C++, and all of the code must be your own, original code. 
+2. You MAY use the C++ STL in your solution if you deem it appropriate to do so. However, no other libraries may be used. 
+3. Your solution must be a stand-alone application, capable of being run from the command line. 
+4. You cannot use external applications or services to do the work; your application must implement all the functionality. 
 
-## How To Win The Competition
+## Submitting Your Solution
 
-dddd
+1. To enter the competition, your team must submit a working (makeable) solution on github, on or before the deadline.
+2. Your team must submit a 1-3 page paper describing the design concepts you used in your solution.
+3. Your team must submit a 1-page "Marketing Overview" that describes your product, highlights your team, and offers reasons why your solution should be chosen over your competitors.
 
 ## Prize? Did you say Prize?
 
