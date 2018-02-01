@@ -32,8 +32,26 @@ In this example, the command name is "-v", a shorthand that is equivalent to "ve
 
 ### Feature 2 -- storage engine
 
-(details TBD)
+The whole point of this program is to manage a collection of resources in a single (binary) file. Similar to the way a .tar or a .zip file stores a collection of compressed files. Note: Compression is not a requirement of this assignment.  However, if your team is bold, and wants to really outperform in the area of storage efficiency, you may "choose" to apply lossless compression to certain data. Again, this is NOT a requirement, and is not recommended for people with heart conditions. :)
 
+#### Basic Storage
+
+Your "storage engine" will create and managed binary files, that are comprised of an arbitrary set of files that are added. Users may add text files, or binary files like images or videos. Your program will not be asked to any single file larger than 500k in size. 
+
+#### Space Management
+
+A key goal of your storage engine is to minimize the overall size of your storage file. Imagine that a user adds 3 large files. Then the user deletes the 2nd file. The result (in terms of storage), may look like this:
+
+[FILE1.........]
+[EMPTY SPACE...]
+[FILE3.........]
+
+As you can see, your total file is 1/3 larger than it needs to be. In order to get maximum points for efficiency, your storage algorithm might choose to move the data from third file into the space previously occupied by the 2nd file, and then truncate the excess bytes from the file:
+
+[FILE1.........]
+[FILE3.........]
+
+A reasonable solution to reduce overall storage space, is to manage your underlying storage space in "chunks" of a fixed size that can easily be moved within the larger storage file. If your program keeps track of which "chunks" are unused, you algorithm could automatically reclaim unused space, rather than just appending new content to the end of your file.
 
 ### Feature 3 -- searching for contents
 
@@ -43,12 +61,26 @@ In this example, the command name is "-v", a shorthand that is equivalent to "ve
 
 Your program must be able to respond to XXX basic commands:
 
-1. add (file)
-2. del (file)
-3. list (files)
-4. find (name files)
-5. extract (emit a copy of the named file to the terminal)
-6. version (show version number and build date)
+### Create StorageFile
+1. create (storagefile) -- create a new "empty" storage unit, with given filename
+
+### Add file to StorageFile
+2. add (storagefile) (filename) -- add the named file to storage unit
+
+### Delete file from StorageFile
+3. del (storagefile) (filename) -- delete a named file from storage
+
+### List files in StorageFile
+4. list (storagefile) (files) -- show all the files in storage; -l is an alias for list
+
+### Find file within StorageFile
+5. find (storagefile) (filename) -- show properties associated with named file
+
+### Extract a file from StorageFile
+6. extract (storagefile) (file)  -- emit a copy of the named file to the terminal
+
+### Show program version
+7. version (show version number and build date); -v is an alias for "version"
 
 ## The Requirements
 
