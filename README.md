@@ -19,6 +19,6 @@ Required sub-systems:
 1. command processor
 2. storage engine
 3. logging engine
-4. self-validation
+4. integrity engine
 
 
