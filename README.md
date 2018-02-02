@@ -102,7 +102,7 @@ sfarchiver version (show version number and build date); -v is an alias for "ver
 
 ### 7. Unknown commands
 
-If a user asks your program to perform a command it doesn't understand, it should emit a clear and appropriate error message. 
+If asked to execute a command you don't understand, emit a clear and appropriate error message. 
  
 ## The Requirements
 
