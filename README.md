@@ -136,7 +136,7 @@ The zombies in Marketing are awaiting your submissions. Here's how they will sco
 
 ### 1. Working Application (45pts)
 
-Vlad-the-Compiler will build your application, and test it using an automated suite of tests. Your solution will recieve 10 points for each completed functional test, so long as you complete all tasks within the standard time window.
+Vlad-the-Compiler will build your application, and test it using an automated suite of tests. Your solution will recieve 10 points for each completed functional test, so long as you complete all tasks within the standard time window and without crashing.
 
 If your solution doesn't build at all, you will receive 0 points in this category.
 
@@ -155,7 +155,7 @@ Performance is an aggregated measure of clock ticks to perform a set of requeste
 
 #### Memory Efficiency
 
-Memory efficiency is a measure of the total memory used by your program during tests.
+Memory efficiency is a measure of the total memory used by your program during tests. Points will be subtracted for solutions that cause memory leaks.
 
 - Solutions in the 1st quartile in memory efficiency will receive 10 points
 - Solutions in the 2nd quartile in memory efficiency will receive 8 points
