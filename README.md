@@ -106,6 +106,7 @@ sfarchiver version (show version number and build date); -v is an alias for "ver
 2. You MAY use the C++ STL in your solution if you deem it appropriate to do so. No "3rd party" libraries may be used. 
 3. Your solution must be a stand-alone application, capable of being built (make) and run from the command line. 
 4. You cannot use external applications or services to do the work; your application must implement all the functionality. 
+5. As this is C++, you may manage memory as necessary using new/delete. You may not use malloc/free.
 
 ## Submitting Your Solution
 
