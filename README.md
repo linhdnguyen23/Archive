@@ -122,6 +122,8 @@ sfarchiver version (show version number and build date); -v is an alias for "ver
 ]
 ```
 
+As this is a group project, we are using github classroom group project repositories. You are responsible for joining your teammates on the github group project page. The fact that you're reading this document means that you've already received the link we sent that enables you to join your group project.
+
 ## Choosing a Winner
 
 The zombies in Marketing are awaiting your submissions. Here's how they will score your work:
