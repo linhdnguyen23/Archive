@@ -183,7 +183,7 @@ Your submission can recieve a total of 100 points, aggregated from points you ea
 
 ## Prize? Did you say Prize?
 
-Why yes, we did say "Prize". Prize. Prize. Prize. As in, you get something of value for winning this competition.
+Why yes, we did say "Prize". Prize. Prize. Prize. As in, you get something of value for winning this competition -- for some definition of _value_ that is yet to be determined.
 
 
 
