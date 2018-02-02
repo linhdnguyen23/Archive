@@ -118,6 +118,7 @@ If asked to execute a command you don't understand, emit a clear and appropriate
 1. To enter the competition, your team must submit a working (makeable) solution on GitHub, on or before the deadline.
 2. Your team must submit a 1-3 page paper describing the technical design concepts you used in your solution. 
 3. Submit a "students.json" file that contains the name, pid and email of each student in your group.
+4. Your submission is due **no later** than Sunday, March 11, 2018 -- at 11:15pm (PST).
 
 ```
 [
