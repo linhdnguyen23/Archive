@@ -99,6 +99,19 @@ sfarchiver extract (archive) "filename"  -- emit a copy of the named file to the
 sfarchiver version (show version number and build date); -v is an alias for "version"
 
 `sfarchiver version 2.3 March 10, 2018`
+
+### 7. Error handling
+
+You need to be able to handle two types of errors:
+
+#### 1. Unknown commands
+
+xxx
+
+#### 2. Logic or operational errors
+
+yyy
+
  
 ## The Requirements
 
