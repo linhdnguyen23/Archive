@@ -100,18 +100,9 @@ sfarchiver version (show version number and build date); -v is an alias for "ver
 
 `sfarchiver version 2.3 March 10, 2018`
 
-### 7. Error handling
+### 7. Unknown commands
 
-You need to be able to handle two types of errors:
-
-#### 1. Unknown commands
-
-xxx
-
-#### 2. Logic or operational errors
-
-yyy
-
+If a user asks your program to perform a command it doesn't understand, it should emit a clear and appropriate error message. 
  
 ## The Requirements
 
@@ -120,6 +111,7 @@ yyy
 3. Your solution must be a stand-alone application, capable of being built (make) and run from the command line. 
 4. You cannot use external applications or services to do the work; your application must implement all the functionality. 
 5. As this is C++, you may manage memory as necessary using new/delete. You may not use malloc/free.
+6. If your program experiences a crash, do all you can to catch the error and report the problem on the command line, rather than simply failing silently.
 
 ## Submitting Your Solution
 
