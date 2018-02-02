@@ -110,7 +110,7 @@ If asked to execute a command you don't understand, emit a clear and appropriate
 2. You MAY use the C++ STL in your solution if you deem it appropriate to do so. No "3rd party" libraries may be used. 
 3. Your solution must be a stand-alone application, capable of being built (make) and run from the command line. 
 4. You cannot use external applications or services to do the work; your application must implement all the functionality. 
-5. As this is C++, you may manage memory as necessary using new/delete. You may not use malloc/free.
+5. As this is C++, you may manage memory as necessary using new/delete. You may not use malloc/free. Be aware that our tests will include measures of your memory usage, and track whether you properly relinquish memory you have allocated.
 6. If your program experiences a crash, do all you can to catch the error and report the problem on the command line, rather than simply failing silently.
 
 ## Submitting Your Solution
