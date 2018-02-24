@@ -20,10 +20,10 @@ public:
   // Constructor sets the start byte, end byte, and the time (time is initialized)
   // inside without any arguments needed. The time should be based off the user's
   // computer time.
-  SFData(uint64_t tStart, uint64_t tSize);
+  SFData(uint64_t tStart, uint64_t tSize, bool tText = false);
 
-  // basic destructor
-  ~SFData();
+  // basic destructor (please define it as well)
+  ~SFData() noexcept;
 
   /** Getters/Setters
   * These are quite straightforward to understand as follows:
@@ -31,11 +31,13 @@ public:
   *     _getEndLoc     -> Return ending byte in archive
   *     _getFileSize   -> Return the size of the file
   *     _getInsertDate -> Return the insertion date/time of the file as a string
+  *     _isTextFile    -> Return whether or not the file in question is a text file
   **/
   uint64_t getStartLoc(void) const;
   uint64_t getEndLoc(void) const;
   uint64_t getFileSize(void) const;
   std::string getInsertdate(void) const;  // returned date as a formatted string!
+  bool isTextFile(void) const;
 
   /** shiftLoc
   *
@@ -49,6 +51,7 @@ public:
 private:
   uint64_t startByte; // start loc in archive
   uint64_t fileSize; // file size for end loc calculation
+  bool isText;       // checks if the file is a text file that can be parsed
 
   typedef struct tm Date;
   Date currDate;  // allows setting of current date
