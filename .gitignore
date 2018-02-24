@@ -2,6 +2,10 @@
 /Debug
 //.settings
 
+# Ignore IDE specific files
+.project
+.cproject
+
 # Ignore compiled binaries
 *.gch
 *.o
