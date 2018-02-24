@@ -1,1 +1,10 @@
+# Ignore IDE specific directories
 /Debug
+//.settings
+
+# Ignore compiled binaries
+*.gch
+*.o
+
+# Ignore compiled executable
+sfarchiver
