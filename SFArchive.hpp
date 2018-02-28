@@ -90,7 +90,7 @@ public:
   **/
   void listFiles(void) const;
 
-  /** listFiles      Huang Lin
+  /** listFiles
   * Description: Lists a subset of the files present in the currently opened
   *              archive by a given string.
   *
@@ -103,7 +103,7 @@ public:
   **/
   void listFiles(const std::string& tString) const;
 
-  /** extractFile
+  /** extractFile Aravind
   * Description: Emit a copy of the file specified by a query. Like remove, this
   *              function also depends on the compression flag.
   *
@@ -117,7 +117,7 @@ public:
   **/
   bool extractFile(const std::string& tString) const;
 
-  /** printVersionInfo
+  /** printVersionInfo Aravind
   * Description: Prints out a copy of the program's name and version.
   *
   * Arguments: None.
