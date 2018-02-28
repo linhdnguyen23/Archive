@@ -43,6 +43,7 @@ public:
   *       1.2) If file is already open, return an error saying that file cannot
   *            be opened.
   *   2) Prepare compression stream if flag has been set. (otherwise store)
+  *   Linh 
   **/
   SFArchive(const std::string& tFile, const bool tCompFlag = false);
 
@@ -54,7 +55,7 @@ public:
   * These implement basic functionality which is expected from an archiver.  *
   * TODO: WRITE HOW TO USE HERE                                              *
   ***************************************************************************/
-  /** addFile
+  /** addFile  Linh
   * Description: Adds a named file to the archive. If the file does not exist,
   *              then report a failure through the return. Note that comrpession
   *              will clearly play a role here.
