@@ -66,7 +66,7 @@ public:
   **/
   bool addFile(const std::string& tFile);
 
-  /** deleteFile
+  /** deleteFile    Huang Lin
   * Description: Removes the file given the input filename. If the file does not
   *              exist, then report a failure through the return. If the file
   *              was compressed, be sure to decompress!
@@ -77,7 +77,7 @@ public:
   **/
   bool deleteFile(const std::string& tFile);
 
-  /** listFiles
+  /** listFiles   Huang Lin
   * Description: Lists all of the files present in the currently opened archive.
   *
   * Arguments: None.isText
