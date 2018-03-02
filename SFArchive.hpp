@@ -156,7 +156,7 @@ private:
   //                            pointer (for the remove/add commands) and filenames
   //                            (for the list commands)
   //      AND ANY OTHER HELPER METHODS LIKELY NEEDED
-
+  bool fileDoesExist(const std::string& aFile);
 };
 
 /** operator<<

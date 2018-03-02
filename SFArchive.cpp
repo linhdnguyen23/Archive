@@ -1,0 +1,52 @@
+/*
+ * SFArchive.cpp
+ *
+ *  Created on: Mar 1, 2018
+ *      Author: linh-nguyen
+ */
+
+ /**
+  * Given an input file:
+  *   1) Open the file (do not create yet if it doesn't exist)
+  *       1.1) If file exists, read the header to containedData member variable.
+  *       1.2) If file is already open, return an error saying that file cannot
+  *            be opened.
+  *   2) Prepare compression stream if flag has been set. (otherwise store)
+  *   Linh
+  **/
+#include <fstream>
+#include "SFArchive.hpp"
+#include "Compression.hpp"
+
+SFArchive::SFArchive(const std::string& aFile, const bool aCompFlag = false) {
+  if(fileDoesExist(aFile)) {
+  	if(openedFile.compare(aFile)) {
+			std::ifstream infile;
+			infile.open(aFile);
+			openedFile = aFile;
+			containedData.insert(_readFooter(infile));
+
+			if(aCompFlag) {
+				Compression::compressData(infile, 1);
+			}
+  	}
+  }
+}
+
+bool SFArchive::fileDoesExist(const std::string& aFile) {
+	std::ifstream infile(aFile);
+	return infile.good();
+}
+
+/** addFile  Linh
+* Description: Adds a named file to the archive. If the file does not exist,
+*              then report a failure through the return. Note that comrpession
+*              will clearly play a role here.
+*
+* Arguments: tFile - the file to be placed into the archive
+*
+* Returns: true - if the file add succeeded; false - otherwise
+**/
+bool SFArchive::addFile(const std::string& tFile) {
+
+}
