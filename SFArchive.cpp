@@ -27,7 +27,7 @@ SFArchive::SFArchive(const std::string& aFile, const bool aCompFlag = false) thr
 			openedFile = aFile;
 			currArchives.push_back(aFile);
 			// Assuming readFooter returns a pair <std::string key, std::SFData> or something
-			containedData.insert(readFooter(infile));
+			containedData = readFooter(infile);
   	}
   	else {
   		throw std::logic_error("File is already opened.");
@@ -63,7 +63,17 @@ bool SFArchive::fileDoesExist(const std::string& aFile) {
 bool SFArchive::addFile(const std::string& aFile) throw(){
 
 	if(!fileDoesExist(aFile)) {
-
+		// Find start address to write this new file to
+		/**
+		 * getFreeSpace will check the size of aFile, and the size of free spaces
+		 * in contained member, then return a starting location for a free space
+		 * that is bigger than the size of aFile
+		 */
+		uint64_t fileSize = sizeof(aFile);
+		uint64_t writeLoc = getFreeSpace(fileSize);
+		SFData file = new SFData(writeLoc, fileSize);
+		writeFooter(containedData, file);
+		return true;
 	}
 
 	return false;
