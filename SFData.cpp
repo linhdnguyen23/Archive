@@ -12,7 +12,7 @@ SFData::SFData(uint64_t tStart, uint64_t tSize, bool tText = false) {
   	isText = tText;
   	time_t rawTime;
   	time(&rawtime);
-  	currDate = *localtime(&rawtime);
+  	currDate = localtime(&rawtime);
 }
 
 uint64_t SFData::getStartLoc(void) const {
@@ -35,6 +35,11 @@ void SFData::shiftLoc(int32_t tShift) {
 	startByte += tShift;
 }
 
-std::ostream& operator<<(std::ostream& tStream, const SFData& tData) {
+std::ostream& operator<<(std::ostream& tStream, const SFData& aData) {
 	std::ostream of(tStream);
+	of.std::setw(100);
+	of.write((char *) aData, sizeof(aData.getFileSize()));
+	of.write((char *) ' ', sizeof(char));
+	of.write(std::string("%d %d %d:%d", currDate.month, currDate.day, currDate.hour, currDate.minute));
+	return of;
 }

@@ -71,4 +71,4 @@ private:
 *
 * Returns: A reference to the tStream as typically expected.
 **/
-std::ostream& operator<<(std::ostream& tStream, const SFData& tData);
+std::ostream& operator<<(std::ostream& tStream, const SFData& aData);
