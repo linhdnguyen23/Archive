@@ -20,7 +20,7 @@ public:
   // Constructor sets the start byte, end byte, and the time (time is initialized)
   // inside without any arguments needed. The time should be based off the user's
   // computer time.
-  SFData(uint64_t tStart, uint64_t tSize, bool tText = false);
+  SFData(uint64_t tStart, uint64_t tSize, bool tText = false); //Linh
 
   // basic destructor (please define it as well)
   ~SFData() noexcept;

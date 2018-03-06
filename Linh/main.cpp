@@ -5,49 +5,11 @@
  *      Author: linh-nguyen
  */
 
-#include "sfarchiver.h"
 #include <iostream>
 #include <map>
 #include <cstdlib>
+#include "SFArchive.h"
 
-sfarchiver::sfarchiver() {
-	// TODO Auto-generated constructor stub
-
-}
-
-sfarchiver::~sfarchiver() {
-	// TODO Auto-generated destructor stub
-}
-
-void sfarchiver::add(std::string &anArchive, std::string &aFile){
-	// check if archive exists
-	// create
-	std::cout << "add" << std::endl;
-}
-
-void sfarchiver::del(std::string &anArchive, std::string &aFile) {
-	std::cout << "del" << std::endl;
-
-}
-void sfarchiver::list(std::string &anArchive) {
-	std::cout << "list" << std::endl;
-
-}
-void sfarchiver::list(std::string &anArchive, std::string &aFile) {
-	std::cout << "list" << std::endl;
-}
-void sfarchiver::find(std::string &anArchive, std::string &aFile) {
-	std::cout << "find" << std::endl;
-
-}
-void sfarchiver::extract(std::string &anArchive, std::string &aFile) {
-	std::cout << "extract" << std::endl;
-
-}
-void sfarchiver::version() {
-	std::cout << "version" << std::endl;
-
-}
 
 int main(int argc, char *argv[]) {
 	if(argc < 2) {
