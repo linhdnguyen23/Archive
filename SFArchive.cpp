@@ -17,22 +17,35 @@
 #include <fstream>
 #include "SFArchive.hpp"
 #include "Compression.hpp"
+#include <stdexcept>
 
-SFArchive::SFArchive(const std::string& aFile, const bool aCompFlag = false) {
+SFArchive::SFArchive(const std::string& aFile, const bool aCompFlag = false) throw() {
   if(fileDoesExist(aFile)) {
   	if(openedFile.compare(aFile)) {
 			std::ifstream infile;
 			infile.open(aFile);
 			openedFile = aFile;
-			containedData.insert(_readFooter(infile));
-
-			if(aCompFlag) {
-				Compression::compressData(infile, 1);
-			}
+			currArchives.push_back(aFile);
+			// Assuming readFooter returns a pair <std::string key, std::SFData> or something
+			containedData.insert(readFooter(infile));
   	}
+  	else {
+  		throw std::logic_error("File is already opened.");
+  	}
+  	/*
+		// Compress file if the flag is set to true
+		if(aCompFlag) {
+			Compression::compressData(infile, 1);
+		}*/
   }
 }
 
+/**
+ * fileDoesExist
+ * Description: Check if file exists in the archive
+ * Arguments: aFile - the file to look for in the archive
+ * Returns: true - if the file exists; false - otherwise
+ */
 bool SFArchive::fileDoesExist(const std::string& aFile) {
 	std::ifstream infile(aFile);
 	return infile.good();
@@ -40,13 +53,18 @@ bool SFArchive::fileDoesExist(const std::string& aFile) {
 
 /** addFile  Linh
 * Description: Adds a named file to the archive. If the file does not exist,
-*              then report a failure through the return. Note that comrpession
+*              then report a failure through the return. Note that compression
 *              will clearly play a role here.
 *
 * Arguments: tFile - the file to be placed into the archive
 *
 * Returns: true - if the file add succeeded; false - otherwise
 **/
-bool SFArchive::addFile(const std::string& tFile) {
+bool SFArchive::addFile(const std::string& aFile) throw(){
 
+	if(!fileDoesExist(aFile)) {
+
+	}
+
+	return false;
 }

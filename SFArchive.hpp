@@ -39,7 +39,7 @@ public:
   /**
   * Given an input file:
   *   1) Open the file (do not create yet if it doesn't exist)
-  *       1.1) If file exists, read the header to containedData member variable.
+  *       1.1) If file exists, read the footer to containedData member variable.
   *       1.2) If file is already open, return an error saying that file cannot
   *            be opened.
   *   2) Prepare compression stream if flag has been set. (otherwise store)
@@ -57,7 +57,7 @@ public:
   ***************************************************************************/
   /** addFile  Linh
   * Description: Adds a named file to the archive. If the file does not exist,
-  *              then report a failure through the return. Note that comrpession
+  *              then report a failure through the return. Note that compression
   *              will clearly play a role here.
   *
   * Arguments: tFile - the file to be placed into the archive
