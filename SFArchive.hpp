@@ -90,7 +90,7 @@ public:
   **/
   void listFiles(void) const;
 
-  /** listFiles Linh
+  /** listFiles
   * Description: Lists a subset of the files present in the currently opened
   *              archive by a given string.
   *
@@ -136,8 +136,8 @@ private:
                                                 // but, it's ultimately up to a group vote
 
   static std::vector<std::string> currArchives; // prevent opening the same archive twice
-  static constexpr float VERSION_NUM = 0.1;     // version number
-  static constexpr const char* info = "February 23, 2018";  // update date
+  static constexpr float VERSION_NUM = 0.2;     // version number
+  static constexpr const char* info = "March 7, 2018";  // update date
   Compression* compressObj;                     // compression object
 
 
