@@ -90,7 +90,7 @@ public:
   **/
   void listFiles(void) const;
 
-  /** listFiles
+  /** listFiles Linh
   * Description: Lists a subset of the files present in the currently opened
   *              archive by a given string.
   *
