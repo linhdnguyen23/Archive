@@ -72,6 +72,7 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 		uint64_t fileSize = sizeof(aFile);
 		uint64_t writeLoc = getFreeSpace(fileSize);
 		SFData file = new SFData(writeLoc, fileSize);
+		// containedData is a map that maintained the file (SFData) as block.
 		writeFooter(containedData, file);
 		return true;
 	}

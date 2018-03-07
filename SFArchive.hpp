@@ -47,7 +47,7 @@ public:
   **/
   SFArchive(const std::string& tFile, const bool tCompFlag = false);
 
-  ~SFArchive() noexcept; // special desctructor not needed (but please do define this)
+  ~SFArchive() noexcept; // special destructor not needed (but please do define this)
 
   /***************************************************************************
   *                            ARCHIVE INTERFACE                             *

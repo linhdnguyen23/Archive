@@ -40,6 +40,6 @@ std::ostream& operator<<(std::ostream& tStream, const SFData& aData) {
 	of.std::setw(100);
 	of.write((char *) aData, sizeof(aData.getFileSize()));
 	of.write((char *) ' ', sizeof(char));
-	of.write(std::string("%d %d %d:%d", currDate.month, currDate.day, currDate.hour, currDate.minute));
+	of.write((char *)aData.currDate, sizeof(aData.currDate));
 	return of;
 }
