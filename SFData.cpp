@@ -28,7 +28,7 @@ uint64_t SFData::getFileSize(void) const {
 }
 
 std::string SFData::getInsertdate(void) const {
-	return currDate;
+	return asctime(currDate);
 }
 
 void SFData::shiftLoc(int32_t tShift) {
