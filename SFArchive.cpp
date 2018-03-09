@@ -21,17 +21,31 @@
 #include <algorithm>
 #include <ctime>
 
+
 #define BLOCK_SIZE 4000
 #define HEADER_SIZE 500
 #define BLOCK_SIZE_WITH_HEADER 4500
 
 /*
+SFArchive::SFArchive(const std::string& aFile, const bool aCompFlag = false) throw() {
+	
+	
+}*/
 
-SFArchive::SFArchive(const std::string& aFile, const bool tCompFlag = false) {
-	SFBlock tempBlock = firstBlocks[aFile];
-
-}
+/**
+* fileDoesExist
+* Description: Check if file exists in the archive
+* Arguments: aFile - the file to look for in the archive
+* Returns: true - if the file exists; false - otherwise
 */
+bool SFArchive::fileDoesExist(const std::string& aFile) {
+	
+	if (firstBlocks.find(aFile) == firstBlocks.end()){
+		return false;
+	}
+
+	   return true;
+}
 
 /** addFile  Linh
 * Description: Adds a named file to the archive. If the file does not exist,
@@ -52,7 +66,6 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	end = myfile.tellg();
 	int fileSize = end - begin;
 	myfile.close();
-
 
 
 	// Set the isText depending on file extensions
@@ -119,14 +132,16 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	//for (int i = 1; i < fileSize; i++){
 	// We're iterating over the num of blocks not fileSize (Linh) change to
 	for (int i = 1; i < numOfBlocks; i++) {
-		 
-		SFBlock newBlock(aFile, date, archivePos,count++ , isText);
+		  SFBlock newBlock(aFile, date, archivePos,count++ , isText);
+		  SFBlock* blockPtr = &newBlock;
+		  *tail->getNextPiece()= *blockPtr;
 		// *(tail)->getNextPiece() = &newBlock;
 		// we go to current block pointed to by the tail, get next piece (which returns
 		// a pointer so dereference it) and set to the
 		// new block (Linh)
-                newBlock = *(tail->getNextPiece());
-                tail = &newBlock;
+         newBlock = *(tail->getNextPiece());
+
+		tail = &newBlock;
 
 		archiveBlocks.push_back(newBlock);
 
@@ -147,7 +162,25 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	return true;
 }
 
+bool SFArchive::deleteFile(const std::string& aFile) throw(){
 
+	int index = firstBlocks[aFile];
+	firstBlocks.erase(aFile);
+	
+
+	SFBlock headBlock = archiveBlocks.at(index);
+
+	while (headBlock.getNextPiece() != nullptr){
+
+		
+	}
+	//Not Finished Yet
+
+
+
+
+
+}
 
 /** listFiles   Huang Lin
 * Description: Lists all of the files present in the currently opened archive.
@@ -161,17 +194,17 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 *          README.
 **/
 
-void SFArchive::listFiles() const {
+void SFArchive::listFiles() const{
 	
 	std::cout <<"filename         size          date-added" << std::endl;
 	for (auto it : firstBlocks){
 		size_t index = it.second;
 		SFBlock tempSFblock = archiveBlocks.at(index);
-		//std::cout << it.first<<"       "<<tempSFblock.getFileSize()<<"        "<<tempSFblock.getDate <<std::endl;
+		std::cout << it.first<<"       "<<tempSFblock.getFileSize<<"        "<<tempSFblock.getDate <<std::endl;
 	}
 };
 
-/** listFiles  Huang Lin
+/** listFiles
 * Description: Lists a subset of the files present in the currently opened
 *              archive by a given string.
 *
@@ -190,12 +223,7 @@ void SFArchive::listFiles(const std::string& tString) const{
 		if (tempString.find(tString) != std::string::npos){
 			size_t index = it.second;
 			SFBlock tempSFblock = archiveBlocks.at(index);
-			//std::cout << it.first << "       " << tempSFblock.getFileSize()<< "        " << tempSFblock.getDate << std::endl;
+			std::cout << it.first << "       " << tempSFblock.getFileSize << "        " << tempSFblock.getDate << std::endl;
 		}
 	}
 };
-
-bool SFArchive::fileDoesExist(const std::string& aFile) {
-	return std::find(archiveBlocks.begin(), archiveBlocks.end(), aFile) != archiveBlocks.end();
-}
-
