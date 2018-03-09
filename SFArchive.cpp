@@ -21,8 +21,10 @@
 #include <algorithm>
 #include <ctime>
 
-#define BLOCK_SIZE 4096
+#define BLOCK_SIZE 4000
 #define HEADER_SIZE 500
+#define BLOCK_SIZE_WITH_HEADER 4500
+
 /*
 
 SFArchive::SFArchive(const std::string& aFile, const bool tCompFlag = false) {
@@ -47,7 +49,6 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	myfile.seekg(0, std::ios::end);
 	end = myfile.tellg();
 	int fileSize = end - begin;
-	int fileSizeWHeader = fileSize + HEADER_SIZE;
 	myfile.close();
 
 
@@ -66,12 +67,8 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	std::string date = asctime(localtime(&rawTime));
 
 	// 4000 or 4096? (Linh) Also define these numbers as constants
-	int numOfBlocks = (fileSizeWHeader/ BLOCK_SIZE) + 1;
-	int spaceLeft = fileSize % 4000;
-
-	/*
-	int spaceLeft = fileSizeWHeader - numOfBlocks * BLOCK_SIZE;
-	 */
+	int numOfBlocks = (fileSize / BLOCK_SIZE);
+	int spaceLeft = BLOCK_SIZE - fileSize % BLOCK_SIZE;
 
 	int count=0;
 	SFBlock headBlock(aFile,date, count++, 1, isText);
@@ -83,7 +80,7 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	outputfile.open("archive.dat", std::ios::binary | std::ios::out | std::ios::ate);
 
 	//Writing the starting block to the Dat file.
-	char buffer[BLOCK_SIZE];
+	char buffer[BLOCK_SIZE_WITH_HEADER];
 	myfile.read(buffer, BLOCK_SIZE);
 	if (!myfile) {
 		outputfile.write(aFile.c_str(),HEADER_SIZE);
