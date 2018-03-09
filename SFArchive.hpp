@@ -67,7 +67,7 @@ public:
   **/
   bool addFile(const std::string& tFile);
 
-  /** deleteFile    Huang Lin
+  /** deleteFile    Brian 
   * Description: Removes the file given the input filename. If the file does not
   *              exist, then report a failure through the return. If the file
   *              was compressed, be sure to decompress!

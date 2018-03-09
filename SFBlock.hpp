@@ -8,7 +8,6 @@
 
 #include <string>
 #include <iostream>
-#include <iomanip>
 
 class SFBlock {
 public:
@@ -21,12 +20,12 @@ public:
   // This also sets the isDeleted flag to false by default.
   SFBlock(const std::string& tFilename, const std::string& tDateString,
           uint32_t tBlockPosition, uint32_t tFileBlockNumber, uint32_t tFilesize,
-          bool tTextFlag = false, SFBlock* tNextBlock = nullptr); //Linh
+          bool tTextFlag = false, SFBlock* tNextBlock = nullptr); //TODO: Linh
 
   // basic destructor (please define it as well)
   ~SFBlock() noexcept;
 
-  /** Getters - These are self explanatory
+  /** Getters - These are self explanatory          (Brian)
   * _getFilename       - gets the file name
   * _getDate           - gets the date the file was placed as a string
   * _getBlockPos       - gets the position of the block in the archive
@@ -45,11 +44,16 @@ public:
   SFBlock* getNextPiece(void) const;
   bool isTextFile(void) const;
 
-  /** SetBlockPos
+  /** SetBlockPos     (Brian)
   * Sets the new block position given the vector respresenting the archive. This
   * should be called AFTER the block has already moved positions in the archiver.
   **/
   void setBlockPos(const int tNewBlockPos);
+
+  /** DeleteBlock       (Brian)
+  * Sets the block as deleted (and thus allows for error checking with above)
+  **/
+  void deleteBlockPos(const int tDelBlockPos);
 
 private:
   std::string fileName;   // holds the filename for block
@@ -69,7 +73,7 @@ private:
   static const constexpr uint16_t HEADER_SIZE = 500;
 };
 
-/** operator<<
+/** operator<< (Brian)
 *
 * Description : Overloads the ostream operator for the SFData class. Please use
 *               getters for this class to deal with this. Note that the formatting
@@ -83,4 +87,4 @@ private:
 *
 * Returns: A reference to the tStream as typically expected.
 **/
-std::ostream& operator<<(std::ostream& tStream, const SFBlock& SFBlock);
+std::ostream& operator<<(std::ostream& tStream, const SFBlock& tBlock);
