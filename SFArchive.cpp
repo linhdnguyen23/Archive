@@ -77,7 +77,7 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 
 	std::ofstream outputfile;
 	// The new file is append to the archive.dat file, added std::ios::ate (Linh)
-	outputfile.open("archive.dat", std::ios::binary | std::ios::out | std::ios::ate);
+	outputfile.open("archive.dat", std::ios::binary | std::ios::out | std::ios::app);
 
 	//Writing the starting block to the Dat file.
 	char buffer[BLOCK_SIZE_WITH_HEADER];
