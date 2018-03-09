@@ -67,7 +67,7 @@ public:
   **/
   bool addFile(const std::string& tFile);
 
-  /** deleteFile    Brian 
+  /** deleteFile    Brian
   * Description: Removes the file given the input filename. If the file does not
   *              exist, then report a failure through the return. If the file
   *              was compressed, be sure to decompress!
@@ -148,7 +148,7 @@ private:
   std::unordered_map<std::string, size_t> firstBlocks;
 
   const bool compressFlag;                        // this probably won't stay
-  static constexpr float VERSION_NUM = 1.0;             // version number
+  static constexpr float VERSION_NUM = 1.1;             // version number
   static constexpr const char* info = "March 8, 2018";   // update date
 
 
