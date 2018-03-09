@@ -152,6 +152,7 @@ private:
   //      _readFooter  -> processes header for currArchives member
   //      _writeFooter -> writes the header back to the END OF THE FILE
   //                      (Consider what happens if we add a file!!!)
+  //
   //      _nameSort/_ptrSort -> Need a comparator for sorting the map based on
   //                            pointer (for the remove/add commands) and filenames
   //                            (for the list commands)

@@ -56,7 +56,48 @@ private:
   typedef struct tm Date;
   Date currDate;  // allows setting of current date
 };
-
+/**
+ * SFArchive
+ * vector of SFBlocks allBlocks
+ * unordered_map<fileName, indexVal> = beginning of each SFBlocks
+ * vector
+ * version
+ *
+ * SFArchive ctor (archive filename)
+ * while(!file.eof)
+ * 	read block header();
+ * 		construct map
+ * 		construct vector
+ *
+ * SFArchive dtor
+ *
+ * SFBlocks - equal size
+ * string fileName
+ * static headerSize (0.5 KB)
+ * string date
+ * unsigned int block position Position of block in vector
+ * unsigned int file_blockNum Positin of block in each file
+ * SFBlocks * next_piece
+ * unsigned int space_not_taken;
+ * bool isText
+ *
+ *
+ * add(fn)
+ * convert file to block
+ * write blocks to end of archive, the vector
+ * 		update map and vector
+ *
+ * extract(fn)
+ * map(fn) = first block
+ * make new file using the first block of the linkedlist
+ *
+ * find(string)
+ * iterate map over all text files:
+ * 		search for string within data segments
+ *
+ * list (string)
+ * iterate map
+ */
 /** operator<<
 *
 * Description : Overloads the ostream operator for the SFData class. Please use

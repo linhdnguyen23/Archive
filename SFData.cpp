@@ -11,8 +11,8 @@ SFData::SFData(uint64_t tStart, uint64_t tSize, bool tText = false) {
   	fileSize = tSize;
   	isText = tText;
   	time_t rawTime;
-  	time(&rawtime);
-  	currDate = localtime(&rawtime);
+  	time(&rawTime);
+  	currDate = localtime(&rawTime);
 }
 
 uint64_t SFData::getStartLoc(void) const {
@@ -28,7 +28,7 @@ uint64_t SFData::getFileSize(void) const {
 }
 
 std::string SFData::getInsertdate(void) const {
-	return asctime(currDate);
+	return currDate;
 }
 
 void SFData::shiftLoc(int32_t tShift) {
