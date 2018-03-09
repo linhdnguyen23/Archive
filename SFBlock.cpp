@@ -9,7 +9,7 @@ SFBlock::SFBlock(const std::string& tFilename, const std::string& tDateString,
   // put stuff in here
   
   //add by Huang Lin
-  this->fileName = tFilename;
+        this->fileName = tFilename;
 	this->date = tDateString;
 	this->blockPos = tBlockPosition;
 	this->fileBlockNum = tFileBlockNumber;
