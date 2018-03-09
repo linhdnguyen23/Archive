@@ -24,6 +24,9 @@
 #include "SFBlock.hpp"
 #include "Compression.hpp"
 
+
+static size_t archivePos;
+
 // #define VERBOSE_ON      // used for debugging. uncomment for verbose output
 
 class SFArchive {
@@ -148,7 +151,7 @@ private:
   std::unordered_map<std::string, size_t> firstBlocks;
 
   const bool compressFlag;                        // this probably won't stay
-  static constexpr float VERSION_NUM = 1.1;             // version number
+  static constexpr float VERSION_NUM = 1.2;             // version number
   static constexpr const char* info = "March 8, 2018";   // update date
 
 
