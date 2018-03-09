@@ -79,3 +79,49 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 
 	return false;
 }
+
+/** listFiles   Huang Lin
+* Description: Lists all of the files present in the currently opened archive.
+*
+* Arguments: None.isText
+*
+* Returns: None.
+*
+* Effects: Prints out statements using the overloaded << operator below. The
+*          desired formatting can be seen either in that description or in the
+*          README.
+**/
+
+void SFArchive::listFiles() const{
+	
+	std::cout <<"filename         size          date-added" << std::endl;
+	for (auto it : firstBlocks){
+		size_t index = it.second;
+		SFBlock tempSFblock = archiveBlocks.at(index);
+		std::cout << it.first<<"       "<<tempSFblock.getFileSize<<"        "<<tempSFblock.getDate <<std::endl;
+	}
+};
+
+/** listFiles  Huang Lin
+* Description: Lists a subset of the files present in the currently opened
+*              archive by a given string.
+*
+* Arguments: tString - the substring to check for within all filenames
+*
+* Returns: None.
+*
+* Effects: Prints out statements using the overloaded << operator below like
+*          above.
+**/
+
+void SFArchive::listFiles(const std::string& tString) const{
+	std::cout << "filename         size          date-added" << std::endl;
+	for (auto it : firstBlocks){
+		std::string tempString = it.first;
+		if (tempString.find(tString) != std::string::npos){
+			size_t index = it.second;
+			SFBlock tempSFblock = archiveBlocks.at(index);
+			std::cout << it.first << "       " << tempSFblock.getFileSize << "        " << tempSFblock.getDate << std::endl;
+		}
+	}
+};
