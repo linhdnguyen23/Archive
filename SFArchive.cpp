@@ -80,6 +80,75 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	return false;
 }
 
+
+/*Huang Lin's version of add file 
+
+  Not 100% finished yet
+
+*/
+
+   bool SFArchive::addFile(const std::string& aFile) throw(){
+
+	// Calculate the file size;
+		std::streampos begin, end;
+		std::ifstream myfile(aFile, std::ios::binary | std::ios::in);
+		begin = myfile.tellg();
+		myfile.seekg(0, std::ios::end);
+		end = myfile.tellg();
+                int fileSize = end - begin;
+		myfile.close();
+
+		//calculate how many blocks do we need
+		std::string date;
+		int numberOfBlocks = (fileSize / 4000)+1;
+		int spaceLeft = fileSize % 4000;
+
+		int count=0;	
+		SFBlock headBlock(aFile,date, count++, 1,true);
+		
+		std::ifstream myfile(aFile, std::ios::binary | std::ios::in);
+
+		std::ofstream outputfile;
+		outputfile.open("archive.dat", std::ios::binary | std::ios::out);
+		
+		//Writing the starting block to the Dat file.
+		char buffer[4000];
+		myfile.read(buffer, 4000);
+		if (!myfile) {
+			outputfile.write(aFile.c_str(),500);
+			outputfile.write(buffer, 4000);
+		}
+
+		archivePos += 4500;
+		// update map/vector
+		firstBlocks[aFile] = archivePos/4500;
+		archiveBlocks.push_back(headBlock);
+
+	    SFBlock *tail = &headBlock;
+
+		for (int i = 1; i < fileSize; i++){
+			SFBlock newBlock (aFile, date, count++, archivePos,true);
+			tail->getNextPiece = &newBlock;
+			tail = &newBlock;
+			archiveBlocks.push_back(newBlock);
+
+			char buffer[4000];
+			myfile.read(buffer, 4000);
+
+			if (!myfile) {
+				outputfile.write(aFile.c_str(), 500);
+				outputfile.write(buffer, 4000);
+			}
+		}
+
+		myfile.close();
+		outputfile.close();
+	    return true;
+}
+
+
+
+
 /** listFiles   Huang Lin
 * Description: Lists all of the files present in the currently opened archive.
 *
