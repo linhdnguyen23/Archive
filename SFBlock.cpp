@@ -7,6 +7,13 @@ SFBlock::SFBlock(const std::string& tFilename, const std::string& tDateString,
                  bool tTextFlag, SFBlock* tNextBlock) //place init list
 {
   // put stuff in here
+  
+  //add by Huang Lin
+  this->fileName = tFilename;
+	this->date = tDateString;
+	this->blockPos = tBlockPosition;
+	this->fileBlockNum = tFileBlockNumber;
+  //For initializing filesize, I haven't figure out yet.
 }
 
 SFBlock::~SFBlock() noexcept {}  // default dtor only needed
