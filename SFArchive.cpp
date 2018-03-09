@@ -18,22 +18,18 @@
 #include "SFArchive.hpp"
 #include "Compression.hpp"
 #include <stdexcept>
+#include <algorithm>
+#include <ctime>
 
 #define BLOCK_SIZE 4096
 #define HEADER_SIZE 500
+/*
 
-/**
- * fileDoesExist
- * Description: Check if file exists in the archive
- * Arguments: aFile - the file to look for in the archive
- * Returns: true - if the file exists; false - otherwise
- */
-bool SFArchive::fileDoesExist(const std::string& aFile) {
-	std::ifstream infile(aFile);
-	return infile.good();
+SFArchive::SFArchive(const std::string& aFile, const bool tCompFlag = false) {
+	SFBlock tempBlock = firstBlocks[aFile];
+
 }
-
-
+*/
 
 
 /*Huang Lin's version of add file 
@@ -54,9 +50,22 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	int fileSizeWHeader = fileSize + HEADER_SIZE;
 	myfile.close();
 
-	//calculate how many blocks do we need
-	std::string date;
-	// 4000 or 4096?
+
+	// Set the isText depending on file extensions
+	bool isText = false;
+	std::string extension = aFile.substr(aFile.find_last_of(".") + 1);
+	if(extension == "txt" || extension == "odt" || extension == "doc"
+			|| extension == "docx" || extension == "pdf" || extension == "rtf"
+					|| extension == "tex" || extension == "wks" || extension == "wps"
+							|| extension == "wpd") {
+		isText = true;
+	}
+
+	time_t rawTime;
+	time(&rawTime);
+	std::string date = asctime(localtime(&rawTime));
+
+	// 4000 or 4096? (Linh) Also define these numbers as constants
 	int numOfBlocks = (fileSizeWHeader/ BLOCK_SIZE) + 1;
 	int spaceLeft = fileSize % 4000;
 
@@ -65,12 +74,12 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	 */
 
 	int count=0;
-	SFBlock headBlock(aFile,date, count++, 1,true);
+	SFBlock headBlock(aFile,date, count++, 1, isText);
 	// I got a redeclaration of myfile error, so I'm commenting it out (Linh)
 	//std::ifstream myfile(aFile, std::ios::binary | std::ios::in);
 
 	std::ofstream outputfile;
-	// The new file is append to the archive.dat file
+	// The new file is append to the archive.dat file, added std::ios::ate (Linh)
 	outputfile.open("archive.dat", std::ios::binary | std::ios::out | std::ios::ate);
 
 	//Writing the starting block to the Dat file.
@@ -81,26 +90,44 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 		outputfile.write(buffer, BLOCK_SIZE);
 	}
 
-	archivePos += (BLOCK_SIZE + HEADER_SIZE);
-;
+	// we don't need this if we're just going to divide archivePos by (BLOCK_SIZE + HEADER_SIZE)
+	// a few lines later. Instead use line below (Linh)
+	// archivePos++;
+	archivePos += 4500;
+
 	// update map and vector
 	firstBlocks[aFile] = archivePos / (BLOCK_SIZE + HEADER_SIZE);
+	// Instead of this, use  (Linh)
+	//firstBlocks[aFile] = archivePos;
+
 	archiveBlocks.push_back(headBlock);
 
-		SFBlock *tail = &headBlock;
+	SFBlock *tail = &headBlock;
 
-	for (int i = 1; i < fileSize; i++){
-		SFBlock newBlock (aFile, date, count++, archivePos,true);
-		tail->getNextPiece = &newBlock;
+
+	//for (int i = 1; i < fileSize; i++){
+	// We're iterating over the num of blocks not fileSize (Linh) change to
+	for (int i = 1; i < numOfBlocks; i++) {
+		SFBlock newBlock (aFile, date, count++, archivePos, isText);
+		//tail->getNextPiece() = &newBlock;
+		// we go to current block pointed to by the tail, get next piece (which returns
+		// a pointer so dereference it) and set to the
+		// new block (Linh)
+		newBlock = *(tail->getNextPiece());
+
 		tail = &newBlock;
+
 		archiveBlocks.push_back(newBlock);
 
-		char buffer[4000];
-		myfile.read(buffer, 4000);
+		char buffer[BLOCK_SIZE];
+		// Is there any partitioned between read and unread so the program will only
+		// get the index of the unread part and read from there
+		myfile.read(buffer, BLOCK_SIZE);
+
 
 		if (!myfile) {
-			outputfile.write(aFile.c_str(), 500);
-			outputfile.write(buffer, 4000);
+			outputfile.write(aFile.c_str(), HEADER_SIZE);
+			outputfile.write(buffer, BLOCK_SIZE);
 		}
 	}
 
@@ -108,7 +135,6 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	outputfile.close();
 	return true;
 }
-
 
 
 
@@ -124,13 +150,13 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 *          README.
 **/
 
-void SFArchive::listFiles() const{
+void SFArchive::listFiles() const {
 	
 	std::cout <<"filename         size          date-added" << std::endl;
 	for (auto it : firstBlocks){
 		size_t index = it.second;
 		SFBlock tempSFblock = archiveBlocks.at(index);
-		std::cout << it.first<<"       "<<tempSFblock.getFileSize<<"        "<<tempSFblock.getDate <<std::endl;
+		//std::cout << it.first<<"       "<<tempSFblock.getFileSize()<<"        "<<tempSFblock.getDate <<std::endl;
 	}
 };
 
@@ -153,7 +179,12 @@ void SFArchive::listFiles(const std::string& tString) const{
 		if (tempString.find(tString) != std::string::npos){
 			size_t index = it.second;
 			SFBlock tempSFblock = archiveBlocks.at(index);
-			std::cout << it.first << "       " << tempSFblock.getFileSize << "        " << tempSFblock.getDate << std::endl;
+			//std::cout << it.first << "       " << tempSFblock.getFileSize()<< "        " << tempSFblock.getDate << std::endl;
 		}
 	}
 };
+
+bool SFArchive::fileDoesExist(const std::string& aFile) {
+	return std::find(archiveBlocks.begin(), archiveBlocks.end(), aFile) != archiveBlocks.end();
+}
+
