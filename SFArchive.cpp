@@ -33,13 +33,15 @@ SFArchive::SFArchive(const std::string& aFile, const bool tCompFlag = false) {
 }
 */
 
-
-/*Huang Lin's version of add file 
-
-  Not 100% finished yet
-
-*/
-
+/** addFile  Linh
+* Description: Adds a named file to the archive. If the file does not exist,
+*              then report a failure through the return. Note that compression
+*              will clearly play a role here.
+*
+* Arguments: tFile - the file to be placed into the archive
+*
+* Returns: true - if the file add succeeded; false - otherwise
+**/
 bool SFArchive::addFile(const std::string& aFile) throw(){
 
 	// Calculate the file size;
@@ -52,13 +54,11 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	myfile.close();
 
 
+
 	// Set the isText depending on file extensions
 	bool isText = false;
 	std::string extension = aFile.substr(aFile.find_last_of(".") + 1);
-	if(extension == "txt" || extension == "odt" || extension == "doc"
-			|| extension == "docx" || extension == "pdf" || extension == "rtf"
-					|| extension == "tex" || extension == "wks" || extension == "wps"
-							|| extension == "wpd") {
+	if (extension == "txt") {
 		isText = true;
 	}
 
@@ -70,30 +70,44 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	int numOfBlocks = (fileSize / BLOCK_SIZE);
 	int spaceLeft = BLOCK_SIZE - fileSize % BLOCK_SIZE;
 
-	int count=0;
-	SFBlock headBlock(aFile,date, count++, 1, isText);
+	int count = 0;
+	SFBlock headBlock(aFile, date, archivePos, count, isText);
 	// I got a redeclaration of myfile error, so I'm commenting it out (Linh)
 	//std::ifstream myfile(aFile, std::ios::binary | std::ios::in);
 
 	std::fstream outputfile;
 	// The new file is append to the archive.dat file, added std::ios::ate (Linh)
-	outputfile.open("archive.dat", std::ios::binary | std::ios::out | std::ios::app);
+	outputfile.open("archive.dat", std::ios::binary |  std::ios::app);
 
 	//Writing the starting block to the Dat file.
-	char buffer[BLOCK_SIZE_WITH_HEADER];
+	char buffer[BLOCK_SIZE];
+
 	myfile.read(buffer, BLOCK_SIZE);
+	char headerBuf[HEADER_SIZE];
+	strcpy(headerBuf, aFile.c_str());
+	strcat(headerBuf, std::string(";").c_str());
+	strcat(headerBuf, date.c_str());
+	strcat(headerBuf, std::string(";").c_str());
+	strcat(headerBuf, std::to_string(archivePos).c_str());
+	strcat(headerBuf, std::string(";").c_str());
+	strcat(headerBuf, std::to_string(count++).c_str());
+	strcat(headerBuf, std::string(";").c_str());
+	strcat(headerBuf, std::to_string(isText).c_str());
+	strcat(headerBuf, std::string(";").c_str());
+
+
+
 	if (!myfile) {
-		outputfile.write(aFile.c_str(),HEADER_SIZE);
+		outputfile.write(headerBuf, HEADER_SIZE);
 		outputfile.write(buffer, BLOCK_SIZE);
 	}
 
 	// we don't need this if we're just going to divide archivePos by (BLOCK_SIZE + HEADER_SIZE)
 	// a few lines later. Instead use line below (Linh)
 	// archivePos++;
-	archivePos += 4500;
 
 	// update map and vector
-	firstBlocks[aFile] = archivePos / (BLOCK_SIZE + HEADER_SIZE);
+	firstBlocks[aFile] = archivePos++;
 	// Instead of this, use  (Linh)
 	//firstBlocks[aFile] = archivePos;
 
@@ -105,14 +119,14 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	//for (int i = 1; i < fileSize; i++){
 	// We're iterating over the num of blocks not fileSize (Linh) change to
 	for (int i = 1; i < numOfBlocks; i++) {
-		SFBlock newBlock (aFile, date, count++, archivePos, isText);
-		//tail->getNextPiece() = &newBlock;
+		 
+		SFBlock newBlock(aFile, date, archivePos,count++ , isText);
+		// *(tail)->getNextPiece() = &newBlock;
 		// we go to current block pointed to by the tail, get next piece (which returns
 		// a pointer so dereference it) and set to the
 		// new block (Linh)
-		newBlock = *(tail->getNextPiece());
-
-		tail = &newBlock;
+                newBlock = *(tail->getNextPiece());
+                tail = &newBlock;
 
 		archiveBlocks.push_back(newBlock);
 
