@@ -75,7 +75,7 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	// I got a redeclaration of myfile error, so I'm commenting it out (Linh)
 	//std::ifstream myfile(aFile, std::ios::binary | std::ios::in);
 
-	std::ofstream outputfile;
+	std::fstream outputfile;
 	// The new file is append to the archive.dat file, added std::ios::ate (Linh)
 	outputfile.open("archive.dat", std::ios::binary | std::ios::out | std::ios::app);
 
