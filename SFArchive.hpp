@@ -19,9 +19,13 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <exception>
-#include "SFData.hpp"
+#include "SFBlock.hpp"
 #include "Compression.hpp"
+
+
+static size_t archivePos;
 
 // #define VERBOSE_ON      // used for debugging. uncomment for verbose output
 
@@ -43,7 +47,7 @@ public:
   *       1.2) If file is already open, return an error saying that file cannot
   *            be opened.
   *   2) Prepare compression stream if flag has been set. (otherwise store)
-  *   Linh 
+  *   Linh
   **/
   SFArchive(const std::string& tFile, const bool tCompFlag = false);
 
@@ -66,7 +70,7 @@ public:
   **/
   bool addFile(const std::string& tFile);
 
-  /** deleteFile    Huang Lin
+  /** deleteFile    Brian
   * Description: Removes the file given the input filename. If the file does not
   *              exist, then report a failure through the return. If the file
   *              was compressed, be sure to decompress!
@@ -103,6 +107,19 @@ public:
   **/
   void listFiles(const std::string& tString) const;
 
+  /** findWithinText
+  * Description: Shows the properties of any textfile that contains the given
+  *              input string.
+  *
+  * Arguments: tString - the string to look for within text files
+  *
+  * Returns: None.
+  *
+  * Effects: Prints out statements using the overloaded << operator (although
+  *          likely not the one in this class!)
+  **/
+  void findWithinText(const std::string& tString) const;
+
   /** extractFile Aravind
   * Description: Emit a copy of the file specified by a query. Like remove, this
   *              function also depends on the compression flag.
@@ -129,16 +146,27 @@ public:
   void printVersionInfo(void) const;
 
 private:
-  std::string openedFile;                       // currently opened file
-  const bool compressFlag;                      // to compress or not to compress...
-  std::map<std::string, SFData> containedData;  // personally, I think this should
-                                                // be sorted based on insertion order
-                                                // but, it's ultimately up to a group vote
+  // NEW VALUES (We'll keep it simple with only two values for now)
+  std::vector<SFBlock> archiveBlocks;
+  std::unordered_map<std::string, size_t> firstBlocks;
 
-  static std::vector<std::string> currArchives; // prevent opening the same archive twice
-  static constexpr float VERSION_NUM = 0.2;     // version number
-  static constexpr const char* info = "March 7, 2018";  // update date
-  Compression* compressObj;                     // compression object
+  const bool compressFlag;                        // this probably won't stay
+  static constexpr float VERSION_NUM = 1.2;             // version number
+  static constexpr const char* info = "March 8, 2018";   // update date
+
+
+  // OLD VALUES
+  // std::string openedFile;                       // currently opened file
+  // const bool compressFlag;                      // to compress or not to compress...
+  // std::map<std::string, SFData> containedData;  // personally, I think this should
+  //                                               // be sorted based on insertion order
+  //                                               // but, it's ultimately up to a group vote
+  //
+  // static std::vector<std::string> currArchives; // prevent opening the same archive twice
+  //
+  // static constexpr float VERSION_NUM = 0.2;     // version number
+  // static constexpr const char* info = "March 7, 2018";  // update date
+  // Compression* compressObj;                     // compression object
 
 
   /***************************************************************************
