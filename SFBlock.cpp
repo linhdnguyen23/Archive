@@ -1,5 +1,6 @@
 #include <iomanip>
 #include "SFBlock.hpp"
+#include  <iostream>
 
 //TODO:
 SFBlock::SFBlock(const std::string& tFilename, const std::string& tDateString,
