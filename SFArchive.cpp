@@ -153,6 +153,20 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 
 		if (!myfile) {
 			outputfile.write(aFile.c_str(), HEADER_SIZE);
+
+			headerBuf[HEADER_SIZE];
+			strcpy(headerBuf, aFile.c_str());
+			strcat(headerBuf, std::string(";").c_str());
+			strcat(headerBuf, date.c_str());
+			strcat(headerBuf, std::string(";").c_str());
+			strcat(headerBuf, std::to_string(archivePos).c_str());
+			strcat(headerBuf, std::string(";").c_str());
+			strcat(headerBuf, std::to_string(count++).c_str());
+			strcat(headerBuf, std::string(";").c_str());
+			strcat(headerBuf, std::to_string(isText).c_str());
+			strcat(headerBuf, std::string(";").c_str());
+
+
 			outputfile.write(buffer, BLOCK_SIZE);
 		}
 	}
@@ -260,3 +274,16 @@ void SFArchive::listFiles(const std::string& tString) const{
 	}
 	
 };
+
+/** findWithinText
+* Description: Shows the properties of any textfile that contains the given
+*              input string.
+*
+* Arguments: tString - the string to look for within text files
+*
+* Returns: None.
+*
+* Effects: Prints out statements using the overloaded << operator (although
+*          likely not the one in this class!)
+**/
+void findWithinText(const std::string& tString) const;
