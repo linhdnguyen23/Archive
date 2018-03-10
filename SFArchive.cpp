@@ -182,6 +182,31 @@ bool SFArchive::deleteFile(const std::string& aFile) throw(){
 
 }
 
+bool SFArchive::extractFile(const::std::string& tString) const
+{
+    char buffer[4500];
+    std::fstream extractedfile;
+    extractedfile.open("extractedfile.txt")
+    std::ifstream archivefile;
+    int location = firstBlocks.find(tString);
+    archivefile.open("archive.dat");
+    archivefile.seekg(location*4500, std::ios::beg);
+    while(archiveBlocks[location] == tString)
+    {
+        while(!archivefile.eof())
+        {
+            archivefile.read(buffer,4500);
+            extractedfile.write(buffer,4500);
+        }
+    }
+    extractedfile.close();
+    archivefile.close();
+}
+
+void printVersionInfo(void) const
+{
+    std::cout<<"Version Number:"<<VERSION_NUM<<std::endl<<"Information:"<<info<<std::endl;
+}
 /** listFiles   Huang Lin
 * Description: Lists all of the files present in the currently opened archive.
 *
@@ -226,4 +251,5 @@ void SFArchive::listFiles(const std::string& tString) const{
 			std::cout << it.first << "       " << tempSFblock.getFileSize << "        " << tempSFblock.getDate << std::endl;
 		}
 	}
+	
 };
