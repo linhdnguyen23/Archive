@@ -21,7 +21,7 @@ public:
   // This also sets the isDeleted flag to false by default.
   SFBlock(const std::string& tFilename, const std::string& tDateString,
           uint32_t tBlockPosition, uint32_t tFileBlockNumber, uint32_t tFilesize,
-          bool tTextFlag = false, SFBlock* tNextBlock = nullptr); //TODO: Linh
+          uint32_t tNextBlock, bool tTextFlag = false);
 
   // basic destructor (please define it as well)
   ~SFBlock() noexcept;
@@ -56,22 +56,27 @@ public:
   **/
   void deleteBlockPos(const int tDelBlockPos);
 
+  /** setNextBlock      (Brian)
+  * Sets the pointer to the next block
+  **/
+  void setNextBlock(SFBlock* tPoint);
+
+  static const constexpr uint16_t BLOCK_SIZE = 4000;
+  static const constexpr uint16_t HEADER_SIZE = 500;
+
 private:
   std::string fileName;   // holds the filename for block
   std::string date;       // records date added
   uint32_t blockPos;      // records position in the entire archive
   uint32_t fileBlockNum;  // block number of the current block
   uint32_t fileSize;      // filesize
+  uint32_t nextIntPiece;  // next piece's position in vector
   SFBlock* nextPiece;     // pointer to the next piece
   bool isText;        // flag to check if a file is a text file
 
   // NOTE: This will NOT be written to the header. It's a flag to monitor archive
   //       status.
   bool isDeleted;     // flag for file deletion (causes exception if not deleted)
-
-
-  static const constexpr uint16_t BLOCK_SIZE = 4000;
-  static const constexpr uint16_t HEADER_SIZE = 500;
 };
 
 /** operator<< (Brian)

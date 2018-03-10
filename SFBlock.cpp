@@ -5,16 +5,12 @@
 //TODO:
 SFBlock::SFBlock(const std::string& tFilename, const std::string& tDateString,
                  uint32_t tBlockPosition, uint32_t tFileBlockNumber, uint32_t tFilesize,
-                 bool tTextFlag, SFBlock* tNextBlock) //place init list
+                 uint32_t tNextBlock, bool tTextFlag) : fileName(tFilename),
+                 date(tDateString), blockPos(tBlockPosition), fileBlockNum(tFileBlockNumber),
+                 fileSize(tFilesize), nextIntPiece(tNextBlock), nextPiece(nullptr),
+                 isText(tTextFlag), isDeleted(false)
 {
-  // put stuff in here
-  
-  //add by Huang Lin
-        this->fileName = tFilename;
-	this->date = tDateString;
-	this->blockPos = tBlockPosition;
-	this->fileBlockNum = tFileBlockNumber;
-  //For initializing filesize, I haven't figure out yet.
+  // nothing to do here
 }
 
 SFBlock::~SFBlock() noexcept {}  // default dtor only needed
@@ -58,6 +54,10 @@ void SFBlock::setBlockPos(const int tNewBlockPos) {
 
 void SFBlock::deleteBlockPos(const int tDelBlockPos) {
   isDeleted = true;
+}
+
+void SFBlock::setNextBlock(SFBlock* tPoint) {
+  nextPiece = tPoint;
 }
 
 std::ostream& operator<<(std::ostream& tStream, const SFBlock& tBlock) {

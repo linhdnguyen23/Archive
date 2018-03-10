@@ -28,11 +28,45 @@
 #define HEADER_SIZE 500
 #define BLOCK_SIZE_WITH_HEADER 4500
 
-/*
-SFArchive::SFArchive(const std::string& aFile, const bool aCompFlag = false) throw() {
-	
-	
-}*/
+SFArchive::SFArchive(const std::string& aFile, bool aCompFlag) {
+	// opens the file
+	std::ifstream inputStream(aFile, std::fstream::binary);
+
+	// read the file headers until none are left
+	if(inputStream.good())
+		constructValues(inputStream);
+
+	// note that if not good, then clearly no file exists!
+
+	// done with file
+	inputStream.close();
+}
+
+void SFArchive::constructValues(std::ifstream& tInStream) {
+	// read header given SFBLock::HEADER_SIZE
+	// seek forward (curr + SF:BLOCK_SIZE - SFBlock::HEADER_SIZE
+	// HEADER :: FNAME DATE FSIZE FBLKNUM NEXTBLK IS_TEXT LEFT_OVER
+
+	// read memory
+	char* buffer = new char[SFBlock::HEADER_SIZE];
+	tInStream.read(buffer, SFBlock::HEADER_SIZE);
+
+	std::string fName, fDate;
+	uint32_t fSize, fBlkNum, isText, nextBlock, fBlockNum;
+	while(!tInStream.eof()) {
+		tInStream >> fName >> fDate >> fSize >> fBlkNum >> nextBlock >> isText;	// read entries
+
+		// construct entry
+		archiveBlocks.emplace_back(fName, fDate, archiveBlocks.size(), fBlockNum, fSize, isText, nextBlock);
+
+		// if first piece, create a reference within map to location
+		if(fBlockNum == 1)
+			firstBlocks[fName] = archiveBlocks.size()-1; 	// -1 since it was currently added
+
+		// now seek forward to the beginning of the next block (will be caught if outside stream)
+		tInStream.seekg(SFBlock::BLOCK_SIZE - SFBlock::HEADER_SIZE, std::ios_base::cur);
+	}
+}
 
 /**
 * fileDoesExist
@@ -41,7 +75,7 @@ SFArchive::SFArchive(const std::string& aFile, const bool aCompFlag = false) thr
 * Returns: true - if the file exists; false - otherwise
 */
 bool SFArchive::fileDoesExist(const std::string& aFile) {
-	
+
 	if (firstBlocks.find(aFile) == firstBlocks.end()){
 		return false;
 	}
@@ -182,13 +216,13 @@ bool SFArchive::deleteFile(const std::string& aFile) throw(){
 
 	int index = firstBlocks[aFile];
 	firstBlocks.erase(aFile);
-	
+
 
 	SFBlock headBlock = archiveBlocks.at(index);
 
 	while (headBlock.getNextPiece() != nullptr){
 
-		
+
 	}
 	//Not Finished Yet
 
@@ -243,7 +277,7 @@ void printVersionInfo(void) const
 **/
 
 void SFArchive::listFiles() const{
-	
+
 	std::cout <<"filename         size          date-added" << std::endl;
 	for (auto it : firstBlocks){
 		size_t index = it.second;
@@ -274,7 +308,7 @@ void SFArchive::listFiles(const std::string& tString) const{
 			std::cout << it.first << "       " << tempSFblock.getFileSize << "        " << tempSFblock.getDate << std::endl;
 		}
 	}
-	
+
 };
 
 /** find
