@@ -118,7 +118,7 @@ public:
   * Effects: Prints out statements using the overloaded << operator (although
   *          likely not the one in this class!)
   **/
-  void findWithinText(const std::string& tString) const;
+  void find(const std::string& tString) const;
 
   /** extractFile Aravind
   * Description: Emit a copy of the file specified by a query. Like remove, this

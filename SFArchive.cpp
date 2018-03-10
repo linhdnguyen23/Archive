@@ -20,6 +20,8 @@
 #include <stdexcept>
 #include <algorithm>
 #include <ctime>
+#include <iostream>
+#include <string>
 
 
 #define BLOCK_SIZE 4000
@@ -275,7 +277,7 @@ void SFArchive::listFiles(const std::string& tString) const{
 	
 };
 
-/** findWithinText
+/** find
 * Description: Shows the properties of any textfile that contains the given
 *              input string.
 *
@@ -286,4 +288,25 @@ void SFArchive::listFiles(const std::string& tString) const{
 * Effects: Prints out statements using the overloaded << operator (although
 *          likely not the one in this class!)
 **/
-void findWithinText(const std::string& tString) const;
+void SFArchive::find(const std::string& aString) const {
+	for(const auto& file : archiveBlocks) {
+		// If file is text, try to find the string, otherwise, skip
+		if(file.isText) {
+			extractFile(file.fileName);
+	    std::fstream textToSearch("extracted.txt", std::ios::in | std::ios::binary);
+
+	    //Search for text line by line
+	    std::string line;
+	    while(textToSearch) {
+	    	getline(textToSearch, line);
+
+	    	// Found aString in text
+	    	if(line.find(aString) != std::string::npos) {
+	    		// Print out the properties of the file containing aString
+	    		std::cout << listFiles(file.fileName) << std::endl;
+	    	}
+	    }
+	    textToSearch.close();
+		}
+	}
+}
