@@ -184,25 +184,32 @@ bool SFArchive::deleteFile(const std::string& aFile) throw(){
 
 bool SFArchive::extractFile(const::std::string& tString) const
 {
-    char buffer[4500];
-    std::fstream extractedfile;
-    extractedfile.open("extractedfile.txt")
-    std::ifstream archivefile;
-    int location = firstBlocks.find(tString);
-    archivefile.open("archive.dat");
-    archivefile.seekg(location*4500, std::ios::beg);
-    while(archiveBlocks[location] == tString)
+    std::fstream extractedfile("extractedfile.txt", std::ios::in | std::ios::binary);
+    std::fstream archivefile("archive.txt", std::ios::in | std::ios::binary);
+    int location = firstBlocks[tString];
+    SFBlock* head = archiveBlocks[location];
+    while (head!=nullptr)
     {
-        while(!archivefile.eof())
+        int pos = head->blockPos;
+        archivefile.seekg(pos * 4100);
+        char buffer[4000];
+        if(head->getNextPiece()->nullptr)
         {
-            archivefile.read(buffer,4500);
-            extractedfile.write(buffer,4500);
+            archivefile.read(buffer,head-> fileSize % BLOCK_SIZE);
+            extractedfile.write(buffer,head-> fileSize % BLOCK_SIZE);
+            head = head -> getNextPiece();
+        }
+        else
+        {
+            archivefile.read(buffer,3900);
+            extractedfile.write(buffer,3900);
+            head = head -> getNextPiece();
         }
     }
     extractedfile.close();
     archivefile.close();
+    return true;
 }
-
 void printVersionInfo(void) const
 {
     std::cout<<"Version Number:"<<VERSION_NUM<<std::endl<<"Information:"<<info<<std::endl;
