@@ -148,10 +148,11 @@ private:
   // NEW VALUES (We'll keep it simple with only two values for now)
   std::vector<SFBlock> archiveBlocks;
   std::unordered_map<std::string, size_t> firstBlocks;
+  std::string openedFile;
 
   bool compressFlag;                        // this probably won't stay
   static constexpr float VERSION_NUM = 1.3;             // version number
-  static constexpr const char* info = "March 8, 2018";   // update date
+  static constexpr const char* INFO = "March 8, 2018";   // update date
 
 
   // OLD VALUES

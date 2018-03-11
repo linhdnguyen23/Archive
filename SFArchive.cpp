@@ -22,13 +22,10 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <unordered_map>
 
-
-#define BLOCK_SIZE 4000
-#define HEADER_SIZE 500
-#define BLOCK_SIZE_WITH_HEADER 4500
-
-SFArchive::SFArchive(const std::string& aFile, bool aCompFlag) : compressFlag(false) {
+SFArchive::SFArchive(const std::string& aFile, bool aCompFlag) : openedFile(aFile),
+																																 compressFlag(false) {
 	// opens the file
 	std::ifstream inputStream(aFile, std::fstream::binary);
 
@@ -115,7 +112,7 @@ bool SFArchive::fileDoesExist(const std::string& aFile) {
 *
 * Returns: true - if the file add succeeded; false - otherwise
 **/
-bool SFArchive::addFile(const std::string& aFile) throw(){
+bool SFArchive::addFile(const std::string& aFile) {
 
 	// Calculate the file size;
 	std::streampos begin, end;
@@ -235,7 +232,7 @@ bool SFArchive::addFile(const std::string& aFile) throw(){
 	return true;
 }
 
-bool SFArchive::deleteFile(const std::string& aFile) throw(){
+bool SFArchive::delete(const std::string& aFile) {
 
 	int index = firstBlocks[aFile];
 	firstBlocks.erase(aFile);
@@ -283,10 +280,11 @@ bool SFArchive::extractFile(const::std::string& tString) const
     archivefile.close();
     return true;
 }
-void printVersionInfo(void) const
-{
-    std::cout<<"Version Number:"<<VERSION_NUM<<std::endl<<"Information:"<<info<<std::endl;
+
+void SFArchive::printVersionInfo(void) const {
+	std::cout << "sfarchiver version " << VERSION_NUM << " " << INFO << std::endl;
 }
+
 /** listFiles   Huang Lin
 * Description: Lists all of the files present in the currently opened archive.
 *
@@ -305,7 +303,7 @@ void SFArchive::listFiles() const{
 	for (auto it : firstBlocks){
 		size_t index = it.second;
 		SFBlock tempSFblock = archiveBlocks.at(index);
-		std::cout << it.first<<"       "<<tempSFblock.getFileSize<<"        "<<tempSFblock.getDate <<std::endl;
+		std::cout << it.first<<"       "<<tempSFblock.getFileSize()<<"        "<<tempSFblock.getDate()<<std::endl;
 	}
 };
 
@@ -328,7 +326,7 @@ void SFArchive::listFiles(const std::string& tString) const{
 		if (tempString.find(tString) != std::string::npos){
 			size_t index = it.second;
 			SFBlock tempSFblock = archiveBlocks.at(index);
-			std::cout << it.first << "       " << tempSFblock.getFileSize << "        " << tempSFblock.getDate << std::endl;
+			std::cout << it.first << "       " << tempSFblock.getFileSize() << "        " << tempSFblock.getDate() << std::endl;
 		}
 	}
 
@@ -348,8 +346,8 @@ void SFArchive::listFiles(const std::string& tString) const{
 void SFArchive::find(const std::string& aString) const {
 	for(const auto& file : archiveBlocks) {
 		// If file is text, try to find the string, otherwise, skip
-		if(file.isText) {
-			extractFile(file.fileName);
+		if(file.isTextFile()) {
+			extractFile(file.getFilename());
 	    std::fstream textToSearch("extracted.txt", std::ios::in | std::ios::binary);
 
 	    //Search for text line by line
@@ -360,7 +358,7 @@ void SFArchive::find(const std::string& aString) const {
 	    	// Found aString in text
 	    	if(line.find(aString) != std::string::npos) {
 	    		// Print out the properties of the file containing aString
-	    		std::cout << listFiles(file.fileName) << std::endl;
+	    		listFiles(file.getFilename());	// already prints the props
 	    	}
 	    }
 	    textToSearch.close();

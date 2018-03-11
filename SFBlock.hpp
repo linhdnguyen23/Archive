@@ -38,7 +38,7 @@ public:
   **/
   std::string getFilename(void) const;
   std::string getDate(void) const;
-  uint32_t getGlockPos(void) const;
+  uint32_t getBlockPos(void) const;
   uint32_t getFileBlockNum(void) const;
   uint32_t getSpaceLeft(void) const;  // calculated from the fileSize
   uint32_t getNextIntPiece(void) const;

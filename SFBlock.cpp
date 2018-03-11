@@ -23,7 +23,7 @@ std::string SFBlock::getDate(void) const {
   return fileName;
 }
 
-uint32_t SFBlock::getGlockPos(void) const {
+uint32_t SFBlock::getBlockPos(void) const {
   return blockPos;
 }
 
