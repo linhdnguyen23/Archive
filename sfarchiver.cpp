@@ -14,8 +14,11 @@
 #include <string>
 #include <iostream>
 #include <exception>
+#include "SFArchive.hpp"
 
 auto main(int argc, char* argv[]) -> int {
-
+  SFArchive testCtor("testarchive");
+  testCtor.listFiles();
+  testCtor.extractFile("emittingtest.txt");
   return 0;
 }

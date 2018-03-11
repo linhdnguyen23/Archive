@@ -39,16 +39,23 @@ SFArchive::SFArchive(const std::string& aFile, bool aCompFlag) : openedFile(aFil
 	inputStream.close();
 }
 
+SFArchive::~SFArchive() {
+	// nothing to do in here
+}
+
 void SFArchive::constructValues(std::ifstream& tInStream) {
 	// read header given SFBLock::HEADER_SIZE
 	// seek forward (curr + SF:BLOCK_SIZE - SFBlock::HEADER_SIZE
 	// HEADER :: FNAME DATE FSIZE FBLKNUM NEXTBLK IS_TEXT LEFT_OVER
 
-	// allocate memory for header reading
 	char* buffer = new char[SFBlock::HEADER_SIZE];
-
 	while(!tInStream.eof()) {
 		tInStream.read(buffer, SFBlock::HEADER_SIZE);
+
+		// check for faulty input by read
+		if(tInStream.eof() && tInStream.fail())
+			break;
+
 		std::istringstream ibuffer(buffer);
 		std::string token;
 		size_t counter = 0;
@@ -70,10 +77,17 @@ void SFArchive::constructValues(std::ifstream& tInStream) {
 		}
 
 		// construct entry
-		archiveBlocks.emplace_back(fName, fDate, archiveBlocks.size(), fBlkNum, fSize, isText, nextBlock);
+		archiveBlocks.emplace_back(fName, fDate, archiveBlocks.size(), fBlkNum, fSize, nextBlock, isText);
+
+#ifdef VERBOSE_ON
+		std::cout << "Constructed block for file " << fName << " created on " << fDate
+							<< " with filesize " << fSize << ", block number " << fBlkNum
+							<< ", and next block number " << nextBlock << " with isText="
+							<< isText << std::endl;
+#endif
 
 		// if first piece, create a reference within map to location
-		if(fBlkNum == 1)
+		if(fBlkNum == 0)
 			firstBlocks[fName] = archiveBlocks.size()-1; 	// -1 since it was currently added
 
 		// now seek forward to the beginning of the next block (will be caught if outside stream)
@@ -81,26 +95,12 @@ void SFArchive::constructValues(std::ifstream& tInStream) {
 	}
 
 	// now build assemble the links between blocks
-	for(auto block:archiveBlocks) {
+	for(SFBlock& block:archiveBlocks) {
 		// read each block and link them if necessary
-		size_t linkedTo = block.getNextIntPiece();
-		block.setNextBlock(&(archiveBlocks[linkedTo]));
+		uint32_t linkedTo = block.getNextIntPiece();
+		if(linkedTo!=(uint32_t)-1)
+			block.setNextBlock(&(archiveBlocks[linkedTo]));
 	}
-}
-
-/**
-* fileDoesExist
-* Description: Check if file exists in the archive
-* Arguments: aFile - the file to look for in the archive
-* Returns: true - if the file exists; false - otherwise
-*/
-bool SFArchive::fileDoesExist(const std::string& aFile) {
-
-	if (firstBlocks.find(aFile) == firstBlocks.end()){
-		return false;
-	}
-
-	   return true;
 }
 
 /** addFile  Linh
@@ -116,13 +116,15 @@ bool SFArchive::addFile(const std::string& aFile) {
 
 	// Calculate the file size;
 	std::streampos begin, end;
-	std::ifstream myfile(aFile, std::ios::binary | std::ios::in);
+	std::ifstream myfile(aFile, std::ios::in | std::ios::binary);
+
 	begin = myfile.tellg();
 	myfile.seekg(0, std::ios::end);
 	end = myfile.tellg();
+	myfile.seekg(0, std::ios::beg);
 	int fileSize = end - begin;
-	myfile.close();
 
+	std::cout << fileSize << std::endl;
 
 	// Set the isText depending on file extensions
 	bool isText = false;
@@ -135,24 +137,28 @@ bool SFArchive::addFile(const std::string& aFile) {
 	time(&rawTime);
 	std::string date = asctime(localtime(&rawTime));
 
-	// 4000 or 4096? (Linh) Also define these numbers as constants
+	std::cout << date;
+
 	int numOfBlocks = (fileSize / BLOCK_SIZE);
 	int spaceLeft = BLOCK_SIZE - fileSize % BLOCK_SIZE;
 
 	int count = 0;
-	SFBlock headBlock(aFile, date, archivePos, count, isText);
-	// I got a redeclaration of myfile error, so I'm commenting it out (Linh)
-	//std::ifstream myfile(aFile, std::ios::binary | std::ios::in);
 
-	std::fstream outputfile;
+	archiveBlocks.emplace_back(aFile, date, archivePos, count, fileSize, isText,count+1);
+
+	std::cout<< archivePos<<"pos"<<std::endl;
+	std::ofstream outputfile;
 	// The new file is append to the archive.dat file, added std::ios::ate (Linh)
-	outputfile.open("archive.dat", std::ios::binary |  std::ios::app);
+	outputfile.open("archive.txt", std::ios::app | std::ios::binary);
+
 
 	//Writing the starting block to the Dat file.
 	char buffer[BLOCK_SIZE];
-
 	myfile.read(buffer, BLOCK_SIZE);
-	char headerBuf[HEADER_SIZE];
+
+
+	char headerBuf[500];
+
 	strcpy(headerBuf, aFile.c_str());
 	strcat(headerBuf, std::string(";").c_str());
 	strcat(headerBuf, date.c_str());
@@ -165,120 +171,199 @@ bool SFArchive::addFile(const std::string& aFile) {
 	strcat(headerBuf, std::string(";").c_str());
 
 
+	 outputfile.write(headerBuf, 500);
 
-	if (!myfile) {
-		outputfile.write(headerBuf, HEADER_SIZE);
-		outputfile.write(buffer, BLOCK_SIZE);
-	}
+	outputfile.write(buffer, BLOCK_SIZE);
 
-	// we don't need this if we're just going to divide archivePos by (BLOCK_SIZE + HEADER_SIZE)
-	// a few lines later. Instead use line below (Linh)
-	// archivePos++;
-
+	int archiveStart = archivePos;
 	// update map and vector
 	firstBlocks[aFile] = archivePos++;
 	// Instead of this, use  (Linh)
 	//firstBlocks[aFile] = archivePos;
 
-	archiveBlocks.push_back(headBlock);
-
-	SFBlock *tail = &headBlock;
-
-
-	//for (int i = 1; i < fileSize; i++){
 	// We're iterating over the num of blocks not fileSize (Linh) change to
-	for (int i = 1; i < numOfBlocks; i++) {
-		  SFBlock newBlock(aFile, date, archivePos,count++ , isText);
-		  SFBlock* blockPtr = &newBlock;
-		  *tail->getNextPiece()= *blockPtr;
-		// *(tail)->getNextPiece() = &newBlock;
-		// we go to current block pointed to by the tail, get next piece (which returns
-		// a pointer so dereference it) and set to the
-		// new block (Linh)
-         newBlock = *(tail->getNextPiece());
+	for (int i = 0; i < numOfBlocks; i++) {
 
-		tail = &newBlock;
+		int index = archiveBlocks.size();
 
-		archiveBlocks.push_back(newBlock);
+		archiveBlocks.emplace_back(aFile, date, archivePos, count, fileSize, isText, count + 1);
 
-		char buffer[BLOCK_SIZE];
-		// Is there any partitioned between read and unread so the program will only
-		// get the index of the unread part and read from there
+		//archiveBlocks.at(index - 1).nextPiece = &newBlock;
+
+        char buffer[BLOCK_SIZE];
+			// Is there any partitioned between read and unread so the program will only
+			// get the index of the unread part and read from there
+
 		myfile.read(buffer, BLOCK_SIZE);
 
+		char headerBuf1[500];
 
-		if (!myfile) {
-			outputfile.write(aFile.c_str(), HEADER_SIZE);
+		strcpy(headerBuf1, aFile.c_str());
+		strcat(headerBuf1, std::string(";").c_str());
+		strcat(headerBuf1, date.c_str());
+		strcat(headerBuf1, std::string(";").c_str());
+		strcat(headerBuf1, std::to_string(archivePos++).c_str());
+		strcat(headerBuf1, std::string(";").c_str());
+		strcat(headerBuf1, std::to_string(count++).c_str());
+		strcat(headerBuf1, std::string(";").c_str());
+		strcat(headerBuf1, std::to_string(isText).c_str());
+		strcat(headerBuf1, std::string(";").c_str());
 
-			headerBuf[HEADER_SIZE];
-			strcpy(headerBuf, aFile.c_str());
-			strcat(headerBuf, std::string(";").c_str());
-			strcat(headerBuf, date.c_str());
-			strcat(headerBuf, std::string(";").c_str());
-			strcat(headerBuf, std::to_string(archivePos).c_str());
-			strcat(headerBuf, std::string(";").c_str());
-			strcat(headerBuf, std::to_string(count++).c_str());
-			strcat(headerBuf, std::string(";").c_str());
-			strcat(headerBuf, std::to_string(isText).c_str());
-			strcat(headerBuf, std::string(";").c_str());
+		count++;
+		outputfile.write(headerBuf1, 500);
 
+		if (i == numOfBlocks - 1){
+			outputfile.write(buffer, fileSize % BLOCK_SIZE);
 
+			char space[4000];
+
+			outputfile.write(space, BLOCK_SIZE - fileSize % BLOCK_SIZE);
+
+		}
+		else{
 			outputfile.write(buffer, BLOCK_SIZE);
 		}
+
+		std::cout << "executed"<<std::endl;
 	}
+
 
 	myfile.close();
 	outputfile.close();
+
+
+	for (int i = 0; i < numOfBlocks; i++){
+
+
+		std::cout  <<i + archiveStart << std::endl;
+		std::cout << archiveBlocks.at(i + archiveStart).blockPos << std::endl;
+		archiveBlocks.at(i + archiveStart).nextPiece = &(archiveBlocks.at(i + 1 + archiveStart));
+	}
+
+	std::cout << "bk" << archiveBlocks.at(2).blockPos << std::endl;
+
 	return true;
+
+
+
 }
 
-bool SFArchive::delete(const std::string& aFile) {
+bool deleteFile(const std::string& aFile) throw(){
 
 	int index = firstBlocks[aFile];
 	firstBlocks.erase(aFile);
 
+	int count = 0;
 
-	SFBlock headBlock = archiveBlocks.at(index);
+	std::vector<SFBlock> newArchiveBlock;
 
-	while (headBlock.getNextPiece() != nullptr){
+	std::fstream myFile("archive.txt", std::ios::in | std::ios::binary);
 
+	std::fstream outputfile("temp.txt", std::ios::out | std::ios::binary);
+
+	for (SFBlock n : archiveBlocks){
+
+		std::string targetFile = n.fileName;
+
+		if (strcmp(targetFile.c_str(), aFile.c_str()) != 0){
+
+
+			int readPos = n.blockPos;
+			myFile.seekg(readPos * 4500);
+			std::cout << "readPost " << readPos << std::endl;
+			char tempBuffer[4500];
+
+		 	myFile.read(tempBuffer, 4500);
+	     	outputfile.write(tempBuffer, 4500);
+
+
+			n.setBlockPos(count);
+
+			std::cout << n.fileName << " " << n.blockPos << " " << n.fileBlockNum<<std::endl;
+
+			count++;
+
+			newArchiveBlock.push_back(n);
+		}
 
 	}
-	//Not Finished Yet
+
+	archiveBlocks.clear();
+
+	archiveBlocks = newArchiveBlock;
+
+	myFile.close();
+	outputfile.close();
+
+	std::cout << "delete" << std::endl;
+	std::cout << archiveBlocks.size() << std::endl;
+
+	for (SFBlock n : archiveBlocks){
+		std::cout << n.fileName << " " << n.blockPos << " " << n.fileBlockNum << std::endl;
+	}
 
 
 
+	std::fstream readTemp("temp.txt", std::ios::in | std::ios::binary);
+
+	std::fstream outputTemp("archive.txt", std::ios::out | std::ios::binary);
 
 
+	for (int i = 0; i < archiveBlocks.size();i++)
+		{
+			char tempBuffer[4500];
+			readTemp.read(tempBuffer, 4500);
+			outputTemp.write(tempBuffer, 4500);
+			std::cout << "sss" << std::endl;
+		}
+
+		readTemp.close();
+		outputTemp.close();
+
+		remove("temp.txt");
+
+	return true;
 }
 
-bool SFArchive::extractFile(const::std::string& tString) const
-{
-    std::fstream extractedfile("extractedfile.txt", std::ios::in | std::ios::binary);
-    std::fstream archivefile("archive.txt", std::ios::in | std::ios::binary);
-    int location = firstBlocks[tString];
-    SFBlock* head = archiveBlocks[location];
-    while (head!=nullptr)
-    {
-        int pos = head->blockPos;
-        archivefile.seekg(pos * 4100);
-        char buffer[4000];
-        if(head->getNextPiece()->nullptr)
-        {
-            archivefile.read(buffer,head-> fileSize % BLOCK_SIZE);
-            extractedfile.write(buffer,head-> fileSize % BLOCK_SIZE);
-            head = head -> getNextPiece();
-        }
-        else
-        {
-            archivefile.read(buffer,3900);
-            extractedfile.write(buffer,3900);
-            head = head -> getNextPiece();
-        }
-    }
-    extractedfile.close();
-    archivefile.close();
-    return true;
+bool SFArchive::extractFile(const std::string& tString) const {
+	auto loc = firstBlocks.find(tString);
+	if(!(loc == firstBlocks.end())) {
+		const SFBlock* curr = &(archiveBlocks[loc->second]);
+		std::ifstream archiveSource(openedFile, std::ios::binary);
+		std::ofstream outputFile(curr->getFilename(), std::ios::binary|std::ios::trunc);
+
+		// is there extra data that will not need to be written?
+		uint32_t leftover = curr->getSpaceLeft();
+
+		// set up buffer for writing
+		size_t sizeToAlloc = SFBlock::BLOCK_SIZE - SFBlock::HEADER_SIZE;
+		char* buf = new char[sizeToAlloc];
+
+		// now write the entire file out to the current working directory
+		while(curr != nullptr) {
+			// go to start position
+			size_t startPos = curr->getBlockPos()*SFBlock::BLOCK_SIZE+SFBlock::HEADER_SIZE;
+			archiveSource.seekg(startPos);
+
+			// now write to the output
+			if(curr->getNextPiece() == nullptr) {	// must be last block
+				delete[] buf;
+				buf = new char[leftover];
+				archiveSource.read(buf, leftover);
+				outputFile.write(buf, leftover);
+				delete[] buf;
+			} else {	// not last block
+				archiveSource.read(buf, sizeToAlloc);
+				outputFile.write(buf, sizeToAlloc);
+			}
+			curr = curr->getNextPiece();	// move onto next piece
+		}
+		outputFile.close();
+		archiveSource.close();
+	} else {
+		return false;	// file does not exist within archive
+	}
+	return true;
 }
 
 void SFArchive::printVersionInfo(void) const {
@@ -305,7 +390,7 @@ void SFArchive::listFiles() const{
 		SFBlock tempSFblock = archiveBlocks.at(index);
 		std::cout << it.first<<"       "<<tempSFblock.getFileSize()<<"        "<<tempSFblock.getDate()<<std::endl;
 	}
-};
+}
 
 /** listFiles
 * Description: Lists a subset of the files present in the currently opened
@@ -330,38 +415,50 @@ void SFArchive::listFiles(const std::string& tString) const{
 		}
 	}
 
-};
-
-/** find
-* Description: Shows the properties of any textfile that contains the given
-*              input string.
-*
-* Arguments: tString - the string to look for within text files
-*
-* Returns: None.
-*
-* Effects: Prints out statements using the overloaded << operator (although
-*          likely not the one in this class!)
-**/
-void SFArchive::find(const std::string& aString) const {
-	for(const auto& file : archiveBlocks) {
-		// If file is text, try to find the string, otherwise, skip
-		if(file.isTextFile()) {
-			extractFile(file.getFilename());
-	    std::fstream textToSearch("extracted.txt", std::ios::in | std::ios::binary);
-
-	    //Search for text line by line
-	    std::string line;
-	    while(textToSearch) {
-	    	getline(textToSearch, line);
-
-	    	// Found aString in text
-	    	if(line.find(aString) != std::string::npos) {
-	    		// Print out the properties of the file containing aString
-	    		listFiles(file.getFilename());	// already prints the props
-	    	}
-	    }
-	    textToSearch.close();
-		}
-	}
 }
+
+// /** find
+// * Description: Shows the properties of any textfile that contains the given
+// *              input string.
+// *
+// * Arguments: tString - the string to look for within text files
+// *
+// * Returns: None.
+// *
+// * Effects: Prints out statements using the overloaded << operator (although
+// *          likely not the one in this class!)
+// **/
+// void SFArchive::find(const std::string& aString) const {
+// 	for(const auto& file : archiveBlocks) {
+// 		// If file is text, try to find the string, otherwise, skip
+// 		if(file.isTextFile()) {
+// 			extractFile(file.getFilename());
+// 	    std::fstream textToSearch("extracted.txt", std::ios::in | std::ios::binary);
+//
+// 	    //Search for text line by line
+// 	    std::string line;
+// 	    while(textToSearch) {
+// 	    	getline(textToSearch, line);
+//
+// 	    	// Found aString in text
+// 	    	if(line.find(aString) != std::string::npos) {
+// 	    		// Print out the properties of the file containing aString
+// 	    		listFiles(file.getFilename());	// already prints the props
+// 	    	}
+// 	    }
+// 	    textToSearch.close();
+// 		}
+// 	}
+// }
+
+// void SFArchive::find(const std::string& aString) const {
+// 	for(auto block:archiveBlocks) {
+// 		if(block.isTextFile()) {
+// 			// if text, follow chain and read all of the blocks to memory
+// 			size_t sizeToAlloc = block.getFileSize();
+// 			std::string document;
+// 			document.reserve(sizeToAlloc+1);
+//
+// 		}
+// 	}
+// }

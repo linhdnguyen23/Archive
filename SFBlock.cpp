@@ -2,7 +2,6 @@
 #include "SFBlock.hpp"
 #include  <iostream>
 
-//TODO:
 SFBlock::SFBlock(const std::string& tFilename, const std::string& tDateString,
                  uint32_t tBlockPosition, uint32_t tFileBlockNumber, uint32_t tFilesize,
                  uint32_t tNextBlock, bool tTextFlag) : fileName(tFilename),
@@ -20,7 +19,7 @@ std::string SFBlock::getFilename(void) const {
 }
 
 std::string SFBlock::getDate(void) const {
-  return fileName;
+  return date;
 }
 
 uint32_t SFBlock::getBlockPos(void) const {

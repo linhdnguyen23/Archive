@@ -24,9 +24,9 @@
 #include "SFBlock.hpp"
 
 
-static size_t archivePos;
+// static size_t archivePos;
 
-// #define VERBOSE_ON      // used for debugging. uncomment for verbose output
+#define VERBOSE_ON      // used for debugging. uncomment for verbose output
 
 class SFArchive {
 public:
