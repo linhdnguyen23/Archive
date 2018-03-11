@@ -83,7 +83,7 @@ void SFArchive::constructValues(std::ifstream& tInStream) {
 	// now build assemble the links between blocks
 	for(auto block:archiveBlocks) {
 		// read each block and link them if necessary
-		size_t linkedTo = blocks.getNextIntPiece();
+		size_t linkedTo = block.getNextIntPiece();
 		block.setNextBlock(&(archiveBlocks[linkedTo]));
 	}
 }
