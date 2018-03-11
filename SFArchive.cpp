@@ -417,39 +417,39 @@ void SFArchive::listFiles(const std::string& tString) const{
 
 }
 
-// /** find
-// * Description: Shows the properties of any textfile that contains the given
-// *              input string.
-// *
-// * Arguments: tString - the string to look for within text files
-// *
-// * Returns: None.
-// *
-// * Effects: Prints out statements using the overloaded << operator (although
-// *          likely not the one in this class!)
-// **/
-// void SFArchive::find(const std::string& aString) const {
-// 	for(const auto& file : archiveBlocks) {
-// 		// If file is text, try to find the string, otherwise, skip
-// 		if(file.isTextFile()) {
-// 			extractFile(file.getFilename());
-// 	    std::fstream textToSearch("extracted.txt", std::ios::in | std::ios::binary);
-//
-// 	    //Search for text line by line
-// 	    std::string line;
-// 	    while(textToSearch) {
-// 	    	getline(textToSearch, line);
-//
-// 	    	// Found aString in text
-// 	    	if(line.find(aString) != std::string::npos) {
-// 	    		// Print out the properties of the file containing aString
-// 	    		listFiles(file.getFilename());	// already prints the props
-// 	    	}
-// 	    }
-// 	    textToSearch.close();
-// 		}
-// 	}
-// }
+/** find
+* Description: Shows the properties of any textfile that contains the given
+*              input string.
+*
+* Arguments: tString - the string to look for within text files
+*
+* Returns: None.
+*
+* Effects: Prints out statements using the overloaded << operator (although
+*          likely not the one in this class!)
+**/
+void SFArchive::find(const std::string& aString) const {
+	for(const auto& file : archiveBlocks) {
+		// If file is text, try to find the string, otherwise, skip
+		if(file.isTextFile()) {
+			extractFile(file.getFilename());
+	    std::fstream textToSearch("extracted.txt", std::ios::in | std::ios::binary);
+
+	    //Search for text line by line
+	    std::string line;
+	    while(textToSearch) {
+	    	getline(textToSearch, line);
+
+	    	// Found aString in text
+	    	if(line.find(aString) != std::string::npos) {
+	    		// Print out the properties of the file containing aString
+	    		listFiles(file.getFilename());	// already prints the props
+	    	}
+	    }
+	    textToSearch.close();
+		}
+	}
+}
 
 // void SFArchive::find(const std::string& aString) const {
 // 	for(auto block:archiveBlocks) {
