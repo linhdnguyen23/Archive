@@ -22,7 +22,6 @@
 #include <unordered_map>
 #include <exception>
 #include "SFBlock.hpp"
-#include "Compression.hpp"
 
 
 static size_t archivePos;
@@ -150,7 +149,7 @@ private:
   std::vector<SFBlock> archiveBlocks;
   std::unordered_map<std::string, size_t> firstBlocks;
 
-  const bool compressFlag;                        // this probably won't stay
+  bool compressFlag;                        // this probably won't stay
   static constexpr float VERSION_NUM = 1.3;             // version number
   static constexpr const char* info = "March 8, 2018";   // update date
 
@@ -186,6 +185,7 @@ private:
   //                            (for the list commands)
   //      AND ANY OTHER HELPER METHODS LIKELY NEEDED
   bool fileDoesExist(const std::string& aFile);
+  void constructValues(std::ifstream& tInStream);
 };
 
 /** operator<<

@@ -41,6 +41,7 @@ public:
   uint32_t getGlockPos(void) const;
   uint32_t getFileBlockNum(void) const;
   uint32_t getSpaceLeft(void) const;  // calculated from the fileSize
+  uint32_t getNextIntPiece(void) const;
   uint32_t getFileSize(void) const;
   SFBlock* getNextPiece(void) const;
   bool isTextFile(void) const;

@@ -48,6 +48,10 @@ bool SFBlock::isTextFile(void) const {
   return isText;
 }
 
+uint32_t SFBlock::getNextIntPiece(void) const {
+  return nextIntPiece;
+}
+
 void SFBlock::setBlockPos(const int tNewBlockPos) {
   blockPos = tNewBlockPos;
 }

@@ -16,9 +16,9 @@
   **/
 #include <fstream>
 #include "SFArchive.hpp"
-#include "Compression.hpp"
 #include <stdexcept>
 #include <algorithm>
+#include <sstream>
 #include <ctime>
 #include <iostream>
 #include <string>
@@ -28,7 +28,7 @@
 #define HEADER_SIZE 500
 #define BLOCK_SIZE_WITH_HEADER 4500
 
-SFArchive::SFArchive(const std::string& aFile, bool aCompFlag) {
+SFArchive::SFArchive(const std::string& aFile, bool aCompFlag) : compressFlag(false) {
 	// opens the file
 	std::ifstream inputStream(aFile, std::fstream::binary);
 
@@ -47,24 +47,47 @@ void SFArchive::constructValues(std::ifstream& tInStream) {
 	// seek forward (curr + SF:BLOCK_SIZE - SFBlock::HEADER_SIZE
 	// HEADER :: FNAME DATE FSIZE FBLKNUM NEXTBLK IS_TEXT LEFT_OVER
 
-	// read memory
+	// allocate memory for header reading
 	char* buffer = new char[SFBlock::HEADER_SIZE];
-	tInStream.read(buffer, SFBlock::HEADER_SIZE);
 
-	std::string fName, fDate;
-	uint32_t fSize, fBlkNum, isText, nextBlock, fBlockNum;
 	while(!tInStream.eof()) {
-		tInStream >> fName >> fDate >> fSize >> fBlkNum >> nextBlock >> isText;	// read entries
+		tInStream.read(buffer, SFBlock::HEADER_SIZE);
+		std::istringstream ibuffer(buffer);
+		std::string token;
+		size_t counter = 0;
+
+		std::string fName, fDate;
+		uint32_t fSize, fBlkNum, isText, nextBlock;
+
+		while(getline(ibuffer, token, ';')) { // read entries
+			switch (counter) {
+				case 0: fName = token; counter++; break;
+				case 1: fDate = token; counter++; break;
+				case 2: fSize = atoi(token.c_str()); counter++; break;
+				case 3: fBlkNum = atoi(token.c_str()); counter++; break;
+				case 4: isText = (bool)atoi(token.c_str()); counter++; break;
+				case 5: nextBlock = atoi(token.c_str()); counter++; break;
+			}
+			if(counter>5)
+				break;	// leave if done with all variables to read
+		}
 
 		// construct entry
-		archiveBlocks.emplace_back(fName, fDate, archiveBlocks.size(), fBlockNum, fSize, isText, nextBlock);
+		archiveBlocks.emplace_back(fName, fDate, archiveBlocks.size(), fBlkNum, fSize, isText, nextBlock);
 
 		// if first piece, create a reference within map to location
-		if(fBlockNum == 1)
+		if(fBlkNum == 1)
 			firstBlocks[fName] = archiveBlocks.size()-1; 	// -1 since it was currently added
 
 		// now seek forward to the beginning of the next block (will be caught if outside stream)
 		tInStream.seekg(SFBlock::BLOCK_SIZE - SFBlock::HEADER_SIZE, std::ios_base::cur);
+	}
+
+	// now build assemble the links between blocks
+	for(auto block:archiveBlocks) {
+		// read each block and link them if necessary
+		size_t linkedTo = blocks.getNextIntPiece();
+		block.setNextBlock(&(archiveBlocks[linkedTo]));
 	}
 }
 
