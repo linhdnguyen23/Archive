@@ -24,6 +24,10 @@
 #include <string>
 #include <unordered_map>
 
+#define BLOCK_SIZE 4000
+#define HEADER_SIZE 500
+
+
 SFArchive::SFArchive(const std::string& aFile, bool aCompFlag) : openedFile(aFile),
 																																 compressFlag(false) {
 	// opens the file
@@ -139,41 +143,49 @@ bool SFArchive::addFile(const std::string& aFile) {
 
 	std::cout << date;
 
-	int numOfBlocks = (fileSize / BLOCK_SIZE);
-	int spaceLeft = BLOCK_SIZE - fileSize % BLOCK_SIZE;
+	int numOfBlocks = (fileSize / (BLOCK_SIZE-HEADER_SIZE));
+	int spaceLeft = (BLOCK_SIZE - HEADER_SIZE) - fileSize % (BLOCK_SIZE - HEADER_SIZE);
 
 	int count = 0;
 
-	archiveBlocks.emplace_back(aFile, date, archivePos, count, fileSize, isText,count+1);
+	int nextBlockNumber = count+1;
 
-	std::cout<< archivePos<<"pos"<<std::endl;
+	if (numOfBlocks == 0){
+		nextBlockNumber = -1;
+	}
+
+	archiveBlocks.emplace_back(aFile, date, archivePos, count, fileSize, nextBlockNumber, isText);
+
+	std::cout << archivePos << "pos" << std::endl;
 	std::ofstream outputfile;
 	// The new file is append to the archive.dat file, added std::ios::ate (Linh)
 	outputfile.open("archive.txt", std::ios::app | std::ios::binary);
 
 
 	//Writing the starting block to the Dat file.
-	char buffer[BLOCK_SIZE];
-	myfile.read(buffer, BLOCK_SIZE);
+	char buffer[(BLOCK_SIZE - HEADER_SIZE)];
+	myfile.read(buffer, (BLOCK_SIZE - HEADER_SIZE));
 
 
-	char headerBuf[500];
-
+	char headerBuf[HEADER_SIZE];
+	
 	strcpy(headerBuf, aFile.c_str());
 	strcat(headerBuf, std::string(";").c_str());
 	strcat(headerBuf, date.c_str());
 	strcat(headerBuf, std::string(";").c_str());
-	strcat(headerBuf, std::to_string(archivePos).c_str());
+	strcat(headerBuf, std::to_string(fileSize).c_str());
 	strcat(headerBuf, std::string(";").c_str());
 	strcat(headerBuf, std::to_string(count++).c_str());
 	strcat(headerBuf, std::string(";").c_str());
 	strcat(headerBuf, std::to_string(isText).c_str());
 	strcat(headerBuf, std::string(";").c_str());
+	strcat(headerBuf, std::to_string(nextBlockNumber).c_str());
+	strcat(headerBuf, std::string(";").c_str());
 
 
-	 outputfile.write(headerBuf, 500);
+	outputfile.write(headerBuf, HEADER_SIZE);
 
-	outputfile.write(buffer, BLOCK_SIZE);
+	outputfile.write(buffer, BLOCK_SIZE - HEADER_SIZE);
 
 	int archiveStart = archivePos;
 	// update map and vector
@@ -186,45 +198,59 @@ bool SFArchive::addFile(const std::string& aFile) {
 
 		int index = archiveBlocks.size();
 
-		archiveBlocks.emplace_back(aFile, date, archivePos, count, fileSize, isText, count + 1);
+		if (i == numOfBlocks - 1){
+			archiveBlocks.emplace_back(aFile, date, archivePos, count, fileSize, -1, isText);
+		}
+		else{
+			archiveBlocks.emplace_back(aFile, date, archivePos, count, fileSize, count + 1, isText);
+		}
 
 		//archiveBlocks.at(index - 1).nextPiece = &newBlock;
 
-        char buffer[BLOCK_SIZE];
-			// Is there any partitioned between read and unread so the program will only
-			// get the index of the unread part and read from there
+		char buffer[BLOCK_SIZE - HEADER_SIZE];
+		// Is there any partitioned between read and unread so the program will only
+		// get the index of the unread part and read from there
 
-		myfile.read(buffer, BLOCK_SIZE);
+		myfile.read(buffer, BLOCK_SIZE - HEADER_SIZE);
 
-		char headerBuf1[500];
+		char headerBuf1[HEADER_SIZE];
 
 		strcpy(headerBuf1, aFile.c_str());
 		strcat(headerBuf1, std::string(";").c_str());
 		strcat(headerBuf1, date.c_str());
 		strcat(headerBuf1, std::string(";").c_str());
-		strcat(headerBuf1, std::to_string(archivePos++).c_str());
+		strcat(headerBuf1, std::to_string(fileSize).c_str());
 		strcat(headerBuf1, std::string(";").c_str());
 		strcat(headerBuf1, std::to_string(count++).c_str());
 		strcat(headerBuf1, std::string(";").c_str());
 		strcat(headerBuf1, std::to_string(isText).c_str());
 		strcat(headerBuf1, std::string(";").c_str());
 
-		count++;
-		outputfile.write(headerBuf1, 500);
+		if (i == numOfBlocks - 1){
+			strcat(headerBuf1, std::to_string(-1).c_str());
+			strcat(headerBuf1, std::string(";").c_str());
+		}
+		else{
+			strcat(headerBuf1, std::to_string(count).c_str());
+			strcat(headerBuf1, std::string(";").c_str());
+		}
+
+		
+		outputfile.write(headerBuf1, HEADER_SIZE);
 
 		if (i == numOfBlocks - 1){
-			outputfile.write(buffer, fileSize % BLOCK_SIZE);
+			outputfile.write(buffer, fileSize % (BLOCK_SIZE - HEADER_SIZE));
 
-			char space[4000];
+			char space[BLOCK_SIZE - HEADER_SIZE];
 
-			outputfile.write(space, BLOCK_SIZE - fileSize % BLOCK_SIZE);
+			outputfile.write(space, (BLOCK_SIZE - HEADER_SIZE) - fileSize % (BLOCK_SIZE - HEADER_SIZE));
 
 		}
 		else{
-			outputfile.write(buffer, BLOCK_SIZE);
+			outputfile.write(buffer, BLOCK_SIZE - HEADER_SIZE);
 		}
 
-		std::cout << "executed"<<std::endl;
+		std::cout << "executed" << std::endl;
 	}
 
 
@@ -232,21 +258,40 @@ bool SFArchive::addFile(const std::string& aFile) {
 	outputfile.close();
 
 
-	for (int i = 0; i < numOfBlocks; i++){
 
+	for (SFBlock& block : archiveBlocks) {
+		// read each block and link them if necessary
 
-		std::cout  <<i + archiveStart << std::endl;
-		std::cout << archiveBlocks.at(i + archiveStart).blockPos << std::endl;
-		archiveBlocks.at(i + archiveStart).nextPiece = &(archiveBlocks.at(i + 1 + archiveStart));
+		//std::cout << "cout" << std::endl;
+		uint32_t linkedTo = block.getNextIntPiece();
+		if (linkedTo != (uint32_t)-1){
+			block.setNextBlock(&(archiveBlocks[linkedTo]));
+		///	std::cout << "test0 "<<linkedTo<<"  "<< block.getNextPiece()->blockPos << std::endl;
+		}
 	}
 
-	std::cout << "bk" << archiveBlocks.at(2).blockPos << std::endl;
+	std::cout << "size" << archiveBlocks.size() << std::endl;
+	std::cout <<"test"<< archiveBlocks.at(0).getNextPiece()->blockPos << std::endl;
+
 
 	return true;
 
 
 
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 bool deleteFile(const std::string& aFile) throw(){
 
