@@ -8,6 +8,6 @@ class commandparser :  public SFArchive
 public:
     commandparser(); //Default Constructor
     int main();
-    int func(int count, vector<std::string> arg);
+    int func(int count, std::vector<std::string> arg);
     ~commandparser(); //Destructor
 };
