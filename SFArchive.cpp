@@ -268,9 +268,7 @@ bool SFArchive::addFile(const std::string& aFile) {
 		}
 	}
 
-	// std::cout << "size" << archiveBlocks.size() << std::endl;
-	// std::cout <<"test"<< archiveBlocks.at(0).getNextPiece()->getBlockPos() << std::endl;
-	// std::cout << "test1" << archiveBlocks.at(1).getNext	Piece()->getBlockPos() << std::endl;
+	
 
 	return true;
 }
