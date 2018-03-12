@@ -109,7 +109,7 @@ int main()
 			}
 		}
 
-		else if (command == "list" || command == "l")
+		else if (command == "list" || command == "-l")
 		{
 			if (count == 3)
 			{
@@ -156,7 +156,7 @@ int main()
 			}
 		}
 
-		else if (command == "version" || command == "v")
+		else if (command == "version" || command == "-v")
 		{
 			
 			SFArchive::printVersionInfo();
