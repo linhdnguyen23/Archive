@@ -32,7 +32,7 @@ int commandparser :: main()
     {
         cmds.push_back(temp);
     }
-    count = cmd.size();
+    count = cmds.size();
     func(count,cmds);
     return 1;
 }
