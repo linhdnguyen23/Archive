@@ -139,7 +139,7 @@ public:
   *
   * Effects: Prints out the program name, version number, and update stamp.
   **/
-  void printVersionInfo(void) const;
+  static void printVersionInfo(void);
 
 private:
   // NEW VALUES (We'll keep it simple with only two values for now)

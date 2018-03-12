@@ -268,7 +268,7 @@ bool SFArchive::addFile(const std::string& aFile) {
 		}
 	}
 
-	
+
 
 	return true;
 }
@@ -390,7 +390,7 @@ bool SFArchive::extractFile(const std::string& tString) const {
 	return true;
 }
 
-void SFArchive::printVersionInfo(void) const {
+void SFArchive::printVersionInfo(void) {
 	std::cout << "sfarchiver version " << VERSION_NUM << " " << INFO << std::endl;
 }
 
@@ -452,32 +452,6 @@ void SFArchive::listFiles(const std::string& tString,bool showHeader) const{
 * Effects: Prints out statements using the overloaded << operator (although
 *          likely not the one in this class!)
 **/
-void SFArchive::find(const std::string& aString) const {
-	for(const auto& file : archiveBlocks) {
-		// If file is text, try to find the string, otherwise, skip
-		if(file.isTextFile()) {
-			extractFile(file.getFilename());
-	    std::fstream textToSearch("extracted.txt", std::ios::in | std::ios::binary);
-
-	    //Search for text line by line
-	    std::string line;
-	    while(textToSearch) {
-	    	getline(textToSearch, line);
-
-	    	// Found aString in text
-	    	if(line.find(aString) != std::string::npos) {
-	    		// Print out the properties of the file containing aString
-	    		listFiles(file.getFilename());	// already prints the props
-	    	}
-	    }
-	    textToSearch.close();
-			remove("extracted.txt");
-		}
-	}
-}
-
-
-
 void SFArchive::find(const std::string& aString) const {
 	for (auto block : archiveBlocks) {
 		if (block.isTextFile()) {
