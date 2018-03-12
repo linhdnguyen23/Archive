@@ -17,8 +17,10 @@
 #include "SFArchive.hpp"
 
 auto main(int argc, char* argv[]) -> int {
-  SFArchive testCtor("testarchive");
-  testCtor.listFiles();
-  testCtor.extractFile("emittingtest.txt");
+  SFArchive sfTest("testarchive");
+  sfTest.listFiles();
+  sfTest.addFile("emittingtest2.txt");
+  sfTest.deleteFile("emittingtest2.txt");
+
   return 0;
 }

@@ -23,10 +23,7 @@
 #include <exception>
 #include "SFBlock.hpp"
 
-
-// static size_t archivePos;
-
-#define VERBOSE_ON      // used for debugging. uncomment for verbose output
+// #define VERBOSE_ON      // used for debugging. uncomment for verbose output
 
 class SFArchive {
 public:
@@ -151,7 +148,7 @@ private:
   std::string openedFile;
 
   bool compressFlag;                        // this probably won't stay
-  static constexpr float VERSION_NUM = 1.3;             // version number
+  static constexpr float VERSION_NUM = 2.0;             // version number
   static constexpr const char* INFO = "March 8, 2018";   // update date
 
 

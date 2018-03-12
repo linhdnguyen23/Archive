@@ -15,18 +15,14 @@
   *   Linh
   **/
 #include <fstream>
-#include "SFArchive.hpp"
-#include <stdexcept>
 #include <algorithm>
 #include <sstream>
 #include <ctime>
+#include <cstring>
 #include <iostream>
 #include <string>
 #include <unordered_map>
-
-#define BLOCK_SIZE 4000
-#define HEADER_SIZE 500
-
+#include "SFArchive.hpp"
 
 SFArchive::SFArchive(const std::string& aFile, bool aCompFlag) : openedFile(aFile),
 																																 compressFlag(false) {
@@ -117,6 +113,10 @@ void SFArchive::constructValues(std::ifstream& tInStream) {
 * Returns: true - if the file add succeeded; false - otherwise
 **/
 bool SFArchive::addFile(const std::string& aFile) {
+	// define constants
+	const size_t HEADER_SIZE = SFBlock::HEADER_SIZE;
+	const size_t BLOCK_SIZE = SFBlock::BLOCK_SIZE;
+	size_t archivePos = archiveBlocks.size();
 
 	// Calculate the file size;
 	std::streampos begin, end;
@@ -159,7 +159,7 @@ bool SFArchive::addFile(const std::string& aFile) {
 	std::cout << archivePos << "pos" << std::endl;
 	std::ofstream outputfile;
 	// The new file is append to the archive.dat file, added std::ios::ate (Linh)
-	outputfile.open("archive.txt", std::ios::app | std::ios::binary);
+	outputfile.open(openedFile, std::ios::app | std::ios::binary);
 
 
 	//Writing the starting block to the Dat file.
@@ -168,7 +168,7 @@ bool SFArchive::addFile(const std::string& aFile) {
 
 
 	char headerBuf[HEADER_SIZE];
-	
+
 	strcpy(headerBuf, aFile.c_str());
 	strcat(headerBuf, std::string(";").c_str());
 	strcat(headerBuf, date.c_str());
@@ -235,7 +235,7 @@ bool SFArchive::addFile(const std::string& aFile) {
 			strcat(headerBuf1, std::string(";").c_str());
 		}
 
-		
+
 		outputfile.write(headerBuf1, HEADER_SIZE);
 
 		if (i == numOfBlocks - 1){
@@ -250,7 +250,7 @@ bool SFArchive::addFile(const std::string& aFile) {
 			outputfile.write(buffer, BLOCK_SIZE - HEADER_SIZE);
 		}
 
-		std::cout << "executed" << std::endl;
+		// std::cout << "executed" << std::endl;
 	}
 
 
@@ -260,9 +260,7 @@ bool SFArchive::addFile(const std::string& aFile) {
 
 
 	for (SFBlock& block : archiveBlocks) {
-		// read each block and link them if necessary
 
-		//std::cout << "cout" << std::endl;
 		uint32_t linkedTo = block.getNextIntPiece();
 		if (linkedTo != (uint32_t)-1){
 			block.setNextBlock(&(archiveBlocks[linkedTo]));
@@ -270,50 +268,33 @@ bool SFArchive::addFile(const std::string& aFile) {
 		}
 	}
 
-	std::cout << "size" << archiveBlocks.size() << std::endl;
-	std::cout <<"test"<< archiveBlocks.at(0).getNextPiece()->blockPos << std::endl;
-
+	// std::cout << "size" << archiveBlocks.size() << std::endl;
+	// std::cout <<"test"<< archiveBlocks.at(0).getNextPiece()->getBlockPos() << std::endl;
+	// std::cout << "test1" << archiveBlocks.at(1).getNext	Piece()->getBlockPos() << std::endl;
 
 	return true;
-
-
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-bool deleteFile(const std::string& aFile) throw(){
-
-	int index = firstBlocks[aFile];
+bool SFArchive::deleteFile(const std::string& aFile) {
+	// int index = firstBlocks.at(aFile);
 	firstBlocks.erase(aFile);
 
 	int count = 0;
 
 	std::vector<SFBlock> newArchiveBlock;
 
-	std::fstream myFile("archive.txt", std::ios::in | std::ios::binary);
+	std::fstream myFile(openedFile, std::ios::in | std::ios::binary);
 
-	std::fstream outputfile("temp.txt", std::ios::out | std::ios::binary);
+	std::fstream outputfile(aFile, std::ios::out | std::ios::binary);
 
 	for (SFBlock n : archiveBlocks){
 
-		std::string targetFile = n.fileName;
+		std::string targetFile = n.getFilename();
 
 		if (strcmp(targetFile.c_str(), aFile.c_str()) != 0){
 
 
-			int readPos = n.blockPos;
+			int readPos = n.getBlockPos();
 			myFile.seekg(readPos * 4500);
 			std::cout << "readPost " << readPos << std::endl;
 			char tempBuffer[4500];
@@ -324,7 +305,7 @@ bool deleteFile(const std::string& aFile) throw(){
 
 			n.setBlockPos(count);
 
-			std::cout << n.fileName << " " << n.blockPos << " " << n.fileBlockNum<<std::endl;
+			std::cout << n.getFilename() << " " << n.getBlockPos() << " " << n.getFileBlockNum()<<std::endl;
 
 			count++;
 
@@ -344,7 +325,7 @@ bool deleteFile(const std::string& aFile) throw(){
 	std::cout << archiveBlocks.size() << std::endl;
 
 	for (SFBlock n : archiveBlocks){
-		std::cout << n.fileName << " " << n.blockPos << " " << n.fileBlockNum << std::endl;
+		std::cout << n.getFilename() << " " << n.getBlockPos() << " " << n.getFileBlockNum() << std::endl;
 	}
 
 
@@ -354,7 +335,7 @@ bool deleteFile(const std::string& aFile) throw(){
 	std::fstream outputTemp("archive.txt", std::ios::out | std::ios::binary);
 
 
-	for (int i = 0; i < archiveBlocks.size();i++)
+	for (size_t i = 0; i < archiveBlocks.size();i++)
 		{
 			char tempBuffer[4500];
 			readTemp.read(tempBuffer, 4500);
@@ -492,6 +473,7 @@ void SFArchive::find(const std::string& aString) const {
 	    	}
 	    }
 	    textToSearch.close();
+			remove("extracted.txt");
 		}
 	}
 }

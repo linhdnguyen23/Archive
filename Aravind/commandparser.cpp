@@ -1,15 +1,13 @@
-#include <stdio.h>
-#include <iostream.h>
-
+#include <iostream>
 #include "SFArchive.hpp"
 #include "commandparser.hpp"
 
 commandparser::commandparser()
-{  
+{
 }
 
 commandparser::~commandparser()
-{  
+{
 }
 
 int commandparser :: main(int count, char *arg[])
@@ -17,19 +15,19 @@ int commandparser :: main(int count, char *arg[])
     std::string command;
     std::string archive;
     std::string filename;
-    
+
     if(count<2)
     {
         std::cout<<"Invalid Command"<<std::endl;
         return 1;
     }
-    
+
     command = arg[1];
     archive = arg[2];
     filename = arg[3];
-    
+
     commandparser sfa;
-    
+
     if(command == "add")
     {
         if(count==4)
@@ -55,7 +53,7 @@ int commandparser :: main(int count, char *arg[])
             std::cout<<"Invalid Command";
         }
     }
-    
+
     else if(command == "list" || command == "l")
     {
         if(count==4)
@@ -63,13 +61,13 @@ int commandparser :: main(int count, char *arg[])
             sfa.SFArchive(archive);
             sfa.listFile(filename);
         }
-        
+
         else if(count==3)
         {
             sfa.SFArchive(archive);
             sfa.listFiles();
         }
-        
+
         else
         {
             std::cout<<"Invalid Command";
@@ -87,7 +85,7 @@ int commandparser :: main(int count, char *arg[])
     //        std::cout<<"Invalid Command";
     //    }
     //}
-    
+
     else if(command == "extract")
     {
         if(count==4)
@@ -100,12 +98,12 @@ int commandparser :: main(int count, char *arg[])
             std::cout<<"Invalid Command";
         }
     }
-    
-    else if(command == "version" || command == "v")
+
+    else if(command == "version" || command == "-v")
     {
         sfa.printVersionInfo();
     }
-    
+
     else
     {
         std::cout<<"Invalid Command";
