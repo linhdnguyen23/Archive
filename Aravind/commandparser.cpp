@@ -1,23 +1,43 @@
 #include <stdio.h>
 #include <iostream.h>
-
+#include <vector>
+#include <sstream>
+#include <string>
 #include "SFArchive.hpp"
 #include "commandparser.hpp"
 
 commandparser::commandparser()
-{  
+{   
 }
 
 commandparser::~commandparser()
 {  
 }
 
-int commandparser :: main(int count, char *arg[])
+int commandparser :: main()
 {
+     while(true)
+    {
+    std::string usercommand;
     std::string command;
     std::string archive;
     std::string filename;
-    
+    int count;
+    vector<std::string> cmds;
+    std::cout<<"sfarchiver ";
+    std::getline(std::cin,usercommand);
+    std::istringstream ss(usercommand);
+    std::string temp;
+    while(ss>>temp)
+    {
+        cmds.push_back(temp);
+    }
+    count = cmd.size();
+    func(count,cmds);
+    return 1;
+}
+int commandparser :: func(int count, vector<std::string> arg)
+{
     if(count<2)
     {
         std::cout<<"Invalid Command"<<std::endl;
@@ -128,4 +148,5 @@ int commandparser :: main(int count, char *arg[])
     }
 
     return 0;
+    }
 }
