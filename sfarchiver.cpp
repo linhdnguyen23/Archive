@@ -11,16 +11,164 @@
 *                    Give messages for these errors as well.
 **/
 
-#include <string>
+#include <fstream>      
 #include <iostream>
-#include <exception>
+#include <ctime>
 #include "SFArchive.hpp"
+#include <vector>
+#include <unordered_map>
+#include <string>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
+#include<set>
+#include <iostream>
 
-auto main(int argc, char* argv[]) -> int {
-  SFArchive sfTest("testarchive");
-  sfTest.listFiles();
-  sfTest.addFile("emittingtest2.txt");
-  sfTest.deleteFile("emittingtest2.txt");
+int main()
+{
+	 
 
-  return 0;
+	while (true){
+
+		std::string usercommand;
+		std::string command;
+		std::string archive;
+		std::string filename;
+
+		int count;
+
+		std::vector<std::string> cmds;
+		std::cout << "sfarchiver ";
+		std::getline(std::cin, usercommand);
+		std::istringstream ss(usercommand);
+		std::string temp;
+		while (ss >> temp)
+		{
+			cmds.push_back(temp);
+		}
+	
+		count = cmds.size();
+		std:: cout << cmds.at(0)<<std::endl;
+		std::cout << "size" <<cmds.size()<< std::endl;
+		std::cout << command << std::endl;
+	
+		
+		if (count == 1){
+			command = cmds.at(0);
+		}
+
+		else if (count == 2)
+		{
+			command = cmds.at(0);
+			archive = cmds.at(1);
+
+			std::cout << command << std::endl;
+			std::cout << archive << std::endl;
+		}
+		else if (count == 3)
+		{
+			command = cmds.at(0);
+			archive = cmds.at(1);
+			filename = cmds.at(2);
+
+			std::cout << command << std::endl;
+			std::cout << archive << std::endl;
+			std::cout << filename << std::endl;
+
+		}
+	
+		else
+		{
+			std::cout << "Invalid number of arguments";
+		}
+
+
+		if (command == "add")
+		{
+			if (count == 3)
+			{
+			SFArchive sfa(archive);
+			sfa.addFile(filename);
+			}
+			else
+			{
+				std::cout << "Invalid Command";
+			}
+		}
+
+		else if (command == "del")
+		{
+			if (count == 3)
+			{
+				SFArchive sfa(archive);
+				sfa.deleteFile(filename);
+			}
+			else
+			{
+				std::cout << "Invalid Command";
+			}
+		}
+
+		else if (command == "list" || command == "l")
+		{
+			if (count == 3)
+			{
+				SFArchive sfa(archive);
+				sfa.listFiles(filename);
+			}
+
+			else if (count == 2)
+			{
+				SFArchive sfa(archive);
+				sfa.listFiles();
+			}
+
+			else
+			{
+				std::cout << "Invalid Command";
+			}
+		}
+
+		else if (command == "find")
+		{
+			if (count == 3)
+			{
+				SFArchive sfa(archive);
+				sfa.find(filename);
+			}
+			else
+			{
+				std::cout << "Invalid Command";
+			}
+		}
+
+
+		else if (command == "extract")
+		{
+			if (count == 3)
+			{
+				SFArchive sfa(archive);
+				sfa.extractFile(filename);
+			}
+			else
+			{
+				std::cout << "Invalid Command";
+			}
+		}
+
+		else if (command == "version" || command == "v")
+		{
+			
+			SFArchive::printVersionInfo();
+		}
+
+		else
+		{
+			std::cout << "Invalid Command";
+			
+		}
+
+
+	}
+	return 0;
 }
