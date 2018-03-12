@@ -24,10 +24,25 @@ int commandparser :: main(int count, char *arg[])
         return 1;
     }
     
+    if(count == 2)
+    {
+    command = arg[1];
+    }
+    else if(count == 3)
+    {
     command = arg[1];
     archive = arg[2];
+    }
+    else if(count == 4)
+    {
+    command = arg[1];
+    archive = arg[2];   
     filename = arg[3];
-    
+    }
+    else
+    {
+    std::cout<<"Invalid number of arguments";
+    }
     commandparser sfa;
     
     if(command == "add")
