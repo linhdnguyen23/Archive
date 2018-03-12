@@ -47,26 +47,25 @@ int commandparser :: main()
 
 int commandparser :: func(int count, std::vector<std::string> arg)
 {
-        if(count<2)
+        if(count<1)
         {
-            std::cout<<"Invalid Command"<<std::endl;
-            return 1;
+            std::cout<<"Invalid Command";
         }
         
-        if(count == 2)
+        if(count == 1)
         {
-            command = arg[1];
+             command = cmds.at(0);
         }
-        else if(count == 3)
+        else if(count == 2)
         {
-            command = arg[1];
-            archive = arg[2];
+             command = cmds.at(0);
+             archive = cmds.at(1);
         }
-        else if(count == 4)
+        else if(count == 2)
         {
-            command = arg[1];
-            archive = arg[2];
-            filename = arg[3];
+            command = cmds.at(0);
+            archive = cmds.at(1);
+            filename = cmds.at(2);
         }
         else
         {
