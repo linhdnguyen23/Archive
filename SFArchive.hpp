@@ -101,7 +101,7 @@ public:
   * Effects: Prints out statements using the overloaded << operator below like
   *          above.
   **/
-  void listFiles(const std::string& tString) const;
+  void listFiles(const std::string& tString , bool showHeader = true) const;
 
   /** findWithinText
   * Description: Shows the properties of any textfile that contains the given
