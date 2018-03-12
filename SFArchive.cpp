@@ -332,7 +332,7 @@ bool SFArchive::deleteFile(const std::string& aFile) {
 
 	std::fstream readTemp("temp.txt", std::ios::in | std::ios::binary);
 
-	std::fstream outputTemp("archive.txt", std::ios::out | std::ios::binary);
+	std::fstream outputTemp(openedFile, std::ios::out | std::ios::binary);
 
 
 	for (size_t i = 0; i < archiveBlocks.size();i++)
