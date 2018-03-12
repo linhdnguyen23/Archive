@@ -1,6 +1,6 @@
 CXX=clang++
 CXXFLAGS=-g -std=c++11 -Wall -pedantic -lstdc++
-BIN=ece180a-group
+BIN=sfarchiver
 
 SRC=$(wildcard *.cpp)
 OBJ=$(SRC:%.cpp=%.o)
