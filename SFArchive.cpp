@@ -428,7 +428,7 @@ void SFArchive::listFiles() const{
 *          above.
 **/
 
-void SFArchive::listFiles(const std::string& tString) const{
+void SFArchive::listFiles(const std::string& tString,bool showHeader) const{
 	std::cout << "filename         size          date-added" << std::endl;
 	for (auto it : firstBlocks){
 		std::string tempString = it.first;
@@ -476,14 +476,48 @@ void SFArchive::find(const std::string& aString) const {
 	}
 }
 
-// void SFArchive::find(const std::string& aString) const {
-// 	for(auto block:archiveBlocks) {
-// 		if(block.isTextFile()) {
-// 			// if text, follow chain and read all of the blocks to memory
-// 			size_t sizeToAlloc = block.getFileSize();
-// 			std::string document;
-// 			document.reserve(sizeToAlloc+1);
-//
-// 		}
-// 	}
-// }
+
+
+void SFArchive::find(const std::string& aString) const {
+	for (auto block : archiveBlocks) {
+		if (block.isTextFile()) {
+			// if text, follow chain and read all of the blocks to memory
+			std::ifstream archiveSource(openedFile, std::ios::binary);
+			const size_t sizeToAlloc = block.getFileSize();
+			const size_t extraSize = block.getSpaceLeft();
+			std::string document;
+			document.reserve(sizeToAlloc + 1);
+
+			// now proceed the read the whole thing into a string
+			SFBlock* curr = &block;
+			char* temp = new char[sizeToAlloc];
+			while (curr != nullptr) {
+				// go to start position
+				size_t startPos = curr->getBlockPos()*SFBlock::BLOCK_SIZE + SFBlock::HEADER_SIZE;
+				archiveSource.seekg(startPos);
+
+				// read the data
+				if (curr->getNextPiece() == nullptr) {	// must be last block
+					delete[] temp;
+					temp = new char[extraSize];
+					archiveSource.read(temp, extraSize);
+					document += temp;
+					delete[] temp;
+				}
+				else {	// not last block
+					archiveSource.read(temp, SFBlock::BLOCK_SIZE - SFBlock::HEADER_SIZE);
+					document += temp;
+				}
+				curr = curr->getNextPiece();	// move onto next piece
+			}
+
+			// now close file
+			archiveSource.close();
+
+			// and finally check the string that was extracted
+			if (document.find(aString) != std::string::npos) {
+				listFiles(block.getFilename(), false);	// already prints the props
+			}
+		}
+	}
+}
