@@ -1,17 +1,15 @@
-CXX=g++
-CXXFLAGS=-g -std=c++11 -Wall -pedantic
-BIN=sfarchiver
+CXX=clang++
+CXXFLAGS=-g -std=c++11 -Wall -pedantic -lstdc++
+BIN=ece180a-group
 
 SRC=$(wildcard *.cpp)
 OBJ=$(SRC:%.cpp=%.o)
-
+INC=-I./include
 all: $(OBJ)
-	$(CXX) -o $(BIN) $^
-
-%.o: %.c
-	$(CXX) $@ -c $<
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(BIN) $^
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INC) -o $@ -c $<
 
 clean:
-	rm -f *.gch
 	rm -f *.o
 	rm $(BIN)
