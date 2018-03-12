@@ -199,10 +199,10 @@ bool SFArchive::addFile(const std::string& aFile) {
 		int index = archiveBlocks.size();
 
 		if (i == numOfBlocks - 1){
-			archiveBlocks.emplace_back(aFile, date, archivePos, count, fileSize, -1, isText);
+			archiveBlocks.emplace_back(aFile, date, archivePos++, count, fileSize, -1, isText);
 		}
 		else{
-			archiveBlocks.emplace_back(aFile, date, archivePos, count, fileSize, count + 1, isText);
+			archiveBlocks.emplace_back(aFile, date, archivePos++, count, fileSize, count + 1, isText);
 		}
 
 		//archiveBlocks.at(index - 1).nextPiece = &newBlock;

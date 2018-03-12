@@ -1,6 +1,17 @@
+#include <stdio.h>
 #include <iostream>
-#include "SFArchive.hpp"
+#include <vector>
+#include <sstream>
+#include <string>
 #include "commandparser.hpp"
+#include "SFArchive.hpp"
+
+std::string usercommand;
+std::string command;
+std::string archive;
+std::string filename;
+int count;
+std::vector<std::string> cmds;
 
 commandparser::commandparser()
 {
@@ -10,105 +21,139 @@ commandparser::~commandparser()
 {
 }
 
-int commandparser :: main(int count, char *arg[])
+int commandparser :: main()
 {
-    std::string command;
-    std::string archive;
-    std::string filename;
-
-    if(count<2)
+    while(true)
     {
-        std::cout<<"Invalid Command"<<std::endl;
+        std::string usercommand;
+        std::string command;
+        std::string archive;
+        std::string filename;
+        int count;
+        std::vector<std::string> cmds;
+        std::cout<<"sfarchiver ";
+        std::getline(std::cin,usercommand);
+        std::istringstream ss(usercommand);
+        std::string temp;
+        while(ss>>temp)
+        {
+            cmds.push_back(temp);
+        }
+        count = cmds.size();
+        func(count,cmds);
         return 1;
     }
+}
 
-    command = arg[1];
-    archive = arg[2];
-    filename = arg[3];
-
-    commandparser sfa;
-
-    if(command == "add")
-    {
-        if(count==4)
+int commandparser :: func(int count, std::vector<std::string> arg)
+{
+        if(count<1)
         {
-            sfa.SFArchive(archive);
-            sfa.addFile(filename);
+            std::cout<<"Invalid Command";
+        }
+
+        if(count == 1)
+        {
+             command = cmds.at(0);
+        }
+        else if(count == 2)
+        {
+             command = cmds.at(0);
+             archive = cmds.at(1);
+        }
+        else if(count == 2)
+        {
+            command = cmds.at(0);
+            archive = cmds.at(1);
+            filename = cmds.at(2);
+        }
+        else
+        {
+            std::cout<<"Invalid number of arguments";
+        }
+        commandparser sfa;
+
+        if(command == "add")
+        {
+            if(count==4)
+            {
+                sfa.SFArchive(archive);
+                sfa.addFile(filename);
+            }
+            else
+            {
+                std::cout<<"Invalid Command";
+            }
+        }
+
+        else if(command == "del")
+        {
+            if(count==4)
+            {
+                sfa.SFArchive(archive);
+                sfa.deleteFile(filename);
+            }
+            else
+            {
+                std::cout<<"Invalid Command";
+            }
+        }
+
+        else if(command == "list" || command == "l")
+        {
+            if(count==4)
+            {
+                sfa.SFArchive(archive);
+                sfa.listFile(filename);
+            }
+
+            else if(count==3)
+            {
+                sfa.SFArchive(archive);
+                sfa.listFiles();
+            }
+
+            else
+            {
+                std::cout<<"Invalid Command";
+            }
+        }
+
+        else if(command == "find")
+        {
+            if(count==4)
+            {
+                sfa.SFArchive(archive);
+                sfa.finfilename);
+            }
+            else
+            {
+                std::cout<<"Invalid Command";
+            }
+        }
+
+        else if(command == "extract")
+        {
+            if(count==4)
+            {
+                sfa.SFArchive(archive);
+                sfa.extractFile(filename);
+            }
+            else
+            {
+                std::cout<<"Invalid Command";
+            }
+        }
+
+        else if(command == "version" || command == "v")
+        {
+            sfa.printVersionInfo();
         }
         else
         {
             std::cout<<"Invalid Command";
-        }
-    }
-
-    else if(command == "del")
-    {
-        if(count==4)
-        {
-            sfa.SFArchive(archive);
-            sfa.deleteFile(filename);
-        }
-        else
-        {
-            std::cout<<"Invalid Command";
-        }
-    }
-
-    else if(command == "list" || command == "l")
-    {
-        if(count==4)
-        {
-            sfa.SFArchive(archive);
-            sfa.listFile(filename);
+            return 1;
         }
 
-        else if(count==3)
-        {
-            sfa.SFArchive(archive);
-            sfa.listFiles();
-        }
-
-        else
-        {
-            std::cout<<"Invalid Command";
-        }
-    }
-
-    //else if(command == "find")
-    //{
-    //    if(count==4)
-    //    {
-    //        sfa.find(archive, filename);
-    //    }
-    //    else
-    //    {
-    //        std::cout<<"Invalid Command";
-    //    }
-    //}
-
-    else if(command == "extract")
-    {
-        if(count==4)
-        {
-            sfa.SFArchive(archive);
-            sfa.extractFile(filename);
-        }
-        else
-        {
-            std::cout<<"Invalid Command";
-        }
-    }
-
-    else if(command == "version" || command == "-v")
-    {
-        sfa.printVersionInfo();
-    }
-
-    else
-    {
-        std::cout<<"Invalid Command";
-        return 1;
-    }
-
-    return 0;
+        return 0;
 }
