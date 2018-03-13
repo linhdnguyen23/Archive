@@ -128,7 +128,7 @@ bool SFArchive::addFile(const std::string& aFile) {
 	myfile.seekg(0, std::ios::beg);
 	int fileSize = end - begin;
 
-	std::cout << fileSize << std::endl;
+	//std::cout << fileSize << std::endl;
 
 	// Set the isText depending on file extensions
 	bool isText = false;
@@ -156,7 +156,7 @@ bool SFArchive::addFile(const std::string& aFile) {
 
 	archiveBlocks.emplace_back(aFile, date, archivePos, count, fileSize, nextBlockNumber, isText);
 
-	std::cout << archivePos << "pos" << std::endl;
+	//std::cout << archivePos << "pos" << std::endl;
 	std::ofstream outputfile;
 	// The new file is append to the archive.dat file, added std::ios::ate (Linh)
 	outputfile.open(openedFile, std::ios::app | std::ios::binary);
@@ -319,13 +319,10 @@ bool SFArchive::deleteFile(const std::string& aFile) {
 	myFile.close();
 	outputfile.close();
 
-	std::cout << "delete" << std::endl;
-	std::cout << archiveBlocks.size() << std::endl;
+	//std::cout << "delete" << std::endl;
+	//std::cout << archiveBlocks.size() << std::endl;
 
-	for (SFBlock n : archiveBlocks){
-		std::cout << n.getFilename() << " " << n.getBlockPos() << " " << n.getFileBlockNum() << std::endl;
-	}
-
+	
 
 
 	std::fstream readTemp("temp.txt", std::ios::in | std::ios::binary);

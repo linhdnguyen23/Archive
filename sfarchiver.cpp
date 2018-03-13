@@ -48,9 +48,7 @@ int main()
 		}
 	
 		count = cmds.size();
-		std:: cout << cmds.at(0)<<std::endl;
-		std::cout << "size" <<cmds.size()<< std::endl;
-		std::cout << command << std::endl;
+		
 	
 		
 		if (count == 1){
@@ -71,9 +69,7 @@ int main()
 			archive = cmds.at(1);
 			filename = cmds.at(2);
 
-			std::cout << command << std::endl;
-			std::cout << archive << std::endl;
-			std::cout << filename << std::endl;
+			
 
 		}
 	
